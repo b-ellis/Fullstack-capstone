@@ -67,7 +67,18 @@ const getApi = (endpoint) => {
 	return emitter;
 }
 
-app.get('/login', passport.authenticate('basic', {session: false}), (req, res) => {
+app.post('/login', passport.authenticate('basic', {
+													session: false,
+													successRedirect: '/',
+				                                   failureRedirect: '/login',
+				                                   failureFlash: true 
+													}), (req, res) => {
+
+	const user = req.user;
+
+});
+
+app.get('/schedule', (req, res) => {
 	const endpoint = '2016-2017-regular/full_game_schedule.json'
 	const result = getApi(endpoint);
 
@@ -83,4 +94,18 @@ app.get('/login', passport.authenticate('basic', {session: false}), (req, res) =
 	});
 });
 
+app.get('/results', (req, res) => {
+	const endpoint = '22016-2017-regular/scoreboard.json?fordate=20160911&'
+	const result = getApi(endpoint);
 
+
+	result.on('end', (data) => {
+		res.json(data);
+	});
+
+	result.on('error', (err) => {
+		res.status(404).json({
+			message: 'Could not contact mysportsfeeds api'
+		});
+	});
+});

@@ -5,13 +5,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 
-class App extends React.Component{
-	render(){
-		return(
-			<h1>Capstone</h1>
-		)
-	}
-}
+import App from './pages/login/components/App';
 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(

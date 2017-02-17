@@ -7,7 +7,7 @@ let LoginForm = (props) => {
 	return(
 		<div>
 			Sign In
-			<form onSubmit={handleSubmit}>
+			<form method='post' action='/login' onSubmit={handleSubmit}>
 				<label>Username</label>
 				<div>
 					<Field name='userName' label='Username' type='text' component={renderField} />

@@ -16,7 +16,7 @@ class App extends React.Component{
 		this.props.dispatch(actions.postUser(e))
 	}
 	handleSubmit(e){
-		this.props.dispatch(actions.fetchUserProfile())
+		this.props.dispatch(actions.fetchUserProfile(e))
 		// console.log(e)
 	}
 	render(){

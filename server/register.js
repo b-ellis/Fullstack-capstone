@@ -119,27 +119,27 @@ const register = function(req, res) {
 		});
 	}
 
-	if(!('phone' in req.body)) {
-		return res.status(422).json({
-			message: 'Missing field: phone'
-		});
-	}
+	// if(!('phone' in req.body)) {
+	// 	return res.status(422).json({
+	// 		message: 'Missing field: phone'
+	// 	});
+	// }
 
-	let phone = req.body.phone;
+	// let phone = req.body.phone;
 
-	if(typeof phone !== 'number') {
-		return res.status(422).json({
-			message: 'Incorrect field type: phone'
-		});
-	}
+	// if(typeof phone !== 'number') {
+	// 	return res.status(422).json({
+	// 		message: 'Incorrect field type: phone'
+	// 	});
+	// }
 
-	// phone = phone.trim();
+	// // phone = phone.trim();
 
-	if(phone === '') {
-		return res.status(422).json({
-			message: 'Incorrect field length: phone'
-		});
-	}
+	// if(phone === '') {
+	// 	return res.status(422).json({
+	// 		message: 'Incorrect field length: phone'
+	// 	});
+	// }
 
 	bcrypt.genSalt(10, (err, salt) => {
 		if(err){

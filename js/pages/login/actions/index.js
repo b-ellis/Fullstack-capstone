@@ -55,29 +55,45 @@ const userLoginError = (error) => {
 	}
 }
 
-const fetchUserProfile = () => {
+const fetchUserProfile = (user) => {
 	return (dispatch) => {
-		const url = '/login';
-		return fetch(url).then((res) => {
-			if(res.status < 200 || res.status >= 300) {
-				const error = new Error(res.statusText);
-				error.response = res;
-				throw error;
-			}
-			return res;
+		axios.post('/login', {
+			username: user.userName,
+			password: user.password,
 		})
-		.then(res => res.json)
-		.then((data) => {
-			return (
-				userLoginSuccess(data)
+		.then((res) => {
+			return dispatch(
+				postUserSuccess(res)
+			)	
+		})
+		.catch((err) => {
+			return dispatch(
+				postUserError(error)
 			)
-		})
-		.catch((error) => {
-			return (
-				userLoginError(error)
-			)
-		})
+		});
 	}
+	// return (dispatch) => {
+	// 	const url = '/login';
+	// 	return fetch(url).then((res) => {
+	// 		if(res.status < 200 || res.status >= 300) {
+	// 			const error = new Error(res.statusText);
+	// 			error.response = res;
+	// 			throw error;
+	// 		}
+	// 		return res;
+	// 	})
+	// 	.then(res => res.json)
+	// 	.then((data) => {
+	// 		return (
+	// 			userLoginSuccess(data)
+	// 		)
+	// 	})
+	// 	.catch((error) => {
+	// 		return (
+	// 			userLoginError(error)
+	// 		)
+	// 	})
+	// }
 }
 
 exports.POST_USER_SUCCESS = POST_USER_SUCCESS;
