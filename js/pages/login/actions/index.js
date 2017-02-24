@@ -20,11 +20,8 @@ const postUserError = (error) => {
 const postUser = (user) => {
 	return (dispatch) => {
 		axios.post('/register', {
-			firstName: user.firstName,
-			surName: user.lastName,
-			username: user.userName,
+			username: user.username,
 			password: user.password,
-			email: user.email
 		})
 		.then((res) => {
 			return dispatch(
@@ -33,7 +30,7 @@ const postUser = (user) => {
 		})
 		.catch((err) => {
 			return dispatch(
-				postUserError(error)
+				postUserError(err)
 			)
 		});
 	}
@@ -56,45 +53,116 @@ const userLoginError = (error) => {
 }
 
 const fetchUserProfile = (user) => {
+
+	// const username = user.userName;
+	// const password = user.password;
+	// const hash = new Buffer(`${username}:${password}`).toString('base64');
+	// console.log(hash)
+	// const config = {
+	// 	headers: {
+	// 		'Authorization': `Basic ${hash}`
+	// 	}
+	// };
 	return (dispatch) => {
 		axios.post('/login', {
 			username: user.userName,
 			password: user.password,
 		})
 		.then((res) => {
+			console.log(res)
 			return dispatch(
-				postUserSuccess(res)
+				userLoginSuccess(res)
 			)	
 		})
 		.catch((err) => {
 			return dispatch(
-				postUserError(error)
+				userLoginError(err)
 			)
 		});
 	}
-	// return (dispatch) => {
-	// 	const url = '/login';
-	// 	return fetch(url).then((res) => {
-	// 		if(res.status < 200 || res.status >= 300) {
-	// 			const error = new Error(res.statusText);
-	// 			error.response = res;
-	// 			throw error;
-	// 		}
-	// 		return res;
-	// 	})
-	// 	.then(res => res.json)
-	// 	.then((data) => {
-	// 		return (
-	// 			userLoginSuccess(data)
-	// 		)
-	// 	})
-	// 	.catch((error) => {
-	// 		return (
-	// 			userLoginError(error)
-	// 		)
-	// 	})
-	// }
 }
+
+// const hash = new Buffer(${username}:${password}).toString('base64')
+// fetch('https://httpbin.org/basic-auth/admin/secret', { headers: { 'Authorization': Basic ${hash} } })
+
+const CHECK_USER_SUCCESS = 'CHECK_USER_SUCCESS';
+const checkUserSuccess = (message, username) => {
+	return{
+		type: CHECK_USER_SUCCESS,
+		message: message,
+		username: username
+	}
+}
+
+const CHECK_USER_ERROR = 'CHECK_USER_ERROR';
+const checkUserError = (error) => {
+	return{
+		type: CHECK_USER_ERROR,
+		error: error
+	}
+}
+
+const checkUser = (username) => {
+	// console.log(username)
+		return (dispatch) => {
+		axios.post('/user', {
+			username: username,
+		})
+		.then((res) => {
+			// console.log(res)
+			return dispatch(
+				checkUserSuccess(res.data.message, res.data.username)
+			)	
+		})
+		.catch((err) => {
+			return dispatch(
+				checkUserError(err)
+			)
+		});
+	}
+}
+
+const CHECK_USERPASS_SUCCESS = 'CHECK_USERPASS_SUCCESS';
+const checkUserpassSuccess = (message) => {
+	return{
+		type: CHECK_USERPASS_SUCCESS,
+		loginMessage: message
+	}
+}
+
+const CHECK_USERPASS_ERROR = 'CHECK_USERPASS_ERROR';
+const checkUserpassError = (error) => {
+	return{
+		type: CHECK_USERPASS_ERROR,
+		loginError: error
+	}
+}
+
+const checkUserpass = (user) => {
+	return(dispatch) => {
+		axios.post('/userpass', {
+			username: user.userName,
+			password: user.password
+		})
+		.then((res) => {
+			console.log(res.data.message)
+			const message = res.data.message;
+			if(message === 'Success'){
+				dispatch(checkUserpassSuccess(message));
+				dispatch(fetchUserProfile(user));
+				return;
+			} else {
+				return dispatch(
+					checkUserpassSuccess(message)
+				)
+			}
+		})
+		.then((err) => {
+			return dispatch(checkUserpassError(err))
+		});
+	}
+}
+
 
 exports.POST_USER_SUCCESS = POST_USER_SUCCESS;
 exports.postUserSuccess = postUserSuccess;
@@ -111,3 +179,19 @@ exports.USER_LOGIN_ERROR = USER_LOGIN_ERROR;
 exports.userLoginError = userLoginError;
 
 exports.fetchUserProfile = fetchUserProfile;
+
+exports.CHECK_USER_SUCCESS = CHECK_USER_SUCCESS;
+exports.checkUserSuccess = checkUserSuccess;
+
+exports.CHECK_USER_ERROR = CHECK_USER_ERROR;
+exports.checkUserError = checkUserError;
+
+exports.checkUser = checkUser;
+
+exports.CHECK_USERPASS_SUCCESS = CHECK_USERPASS_SUCCESS;
+exports.checkUserpassSuccess = checkUserpassSuccess;
+
+exports.CHECK_USERPASS_ERROR = CHECK_USERPASS_ERROR;
+exports.checkUserpassError = checkUserpassError;
+
+exports.checkUserpass = checkUserpass;

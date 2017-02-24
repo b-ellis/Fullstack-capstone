@@ -5,17 +5,11 @@ import bcrypt from 'bcryptjs';
 mongoose.Promise = require('bluebird');
 
 const userSchema = new mongoose.Schema({
-	firstName: {type: String, required: true},
-	surName: {type: String, required: true},
-	userName: {type: String, required: true, unique: true},
+	username: {type: String, required: true, unique: true},
 	password: {type: String, required:true},
-	email: {type: String, required: true},
-	phone: {type: Number},
-	member: {type: Number}
 });
 
 userSchema.methods.validatePassword = function(password, callback) {
-	console.log(this.password);
 	bcrypt.compare(password, this.password, function(err, isVaild) {
 		if(err){
 			callback(err);

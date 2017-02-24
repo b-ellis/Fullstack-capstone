@@ -48,30 +48,113 @@ if (require.main === module) {
 }
 
 app.post('/register', (req, res) => {
+	console.log(req.body);
 	register(req, res);
-});
+}); 
 
 passport.use(strategy);
 app.use(passport.initialize());
 
-app.post('/login', passport.authenticate('basic', {
-													session: false,
-													successRedirect: '/results',
-				                                   failureRedirect: '/login',
-				                                   failureFlash: true 
-													}), (req, res) => {
+app.post('/login', (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
 
-	const user = req.user;
+	console.log(req.headers)
 
-	const profile = new Profile({
-		name: user.firstName + ' ' + user.lastName,
-		username: user.userName,
-		email: user.email
+	User.findOne({
+		username: username
+	}, (err, user) => {
+		console.log(user);
+		if(err){
+			return res.status(500).json({
+				message: 'Failed'
+			})
+		}
+
+		if(!user){
+			return res.status(500).json({
+				message: 'Incorrect username'
+			}); 
+		}
+
+		user.validatePassword(password, (err, isVaild) => {
+			if(err){
+				return (err);
+			}
+
+			if(!isVaild){
+				return res.status(500).json({
+					message: 'Incorrect password'
+				}); 
+			}
+
+			return res.json({
+				message: 'Success',
+			});
+		});
 	});
 
-	res.json(profile);
-	console.log(profile);
 });
+
+app.post('/user', (req, res) => {
+	const username = req.body.username;
+
+	User.findOne({
+		username: username
+	},(err, user) => {
+		if(err){
+			return res.status(500).json({
+				message: 'Failed'
+			});
+		}
+		if(user === null){
+			return res.json({
+				message: 'Username is not taken'
+			});
+		}
+		if(user.username === username){
+			return res.json({
+				message: 'Username already exists',
+				username: user.username
+			});
+		}
+	});
+});
+
+app.post('/userpass', (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+
+	User.findOne({
+		username: username
+	}, (err, user) => {
+		if(err){
+			return res.status(500).json({
+				message: 'Failed'
+			});
+		}
+		if(!user){
+			return res.json({
+				message: 'Username does not exist'
+			}); 
+		}
+		user.validatePassword(password, (err, isVaild) => {
+			if(err){
+				return (err);
+			}
+
+			if(!isVaild){
+				return res.json({
+					message: 'Incorrect password'
+				}); 
+			}
+
+			return res.json({
+				message: 'Success',
+			});
+		});
+	});
+})
 
 app.get('/schedule', (req, res) => {
 	const endpoint = '2016-2017-regular/full_game_schedule.json'

@@ -4,7 +4,7 @@ import User from '../models/user';
 
 const strategy = new BasicStrategy((username, password, callback) => {
 	User.findOne({
-		userName: username
+		username: username
 	}, (err, user) => {
 		if(err){
 			callback(err);
