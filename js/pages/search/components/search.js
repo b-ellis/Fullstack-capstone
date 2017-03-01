@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import actions from '../actions/index';
 
-class Game extends React.Component {
+class Search extends React.Component {
 	constructor(){
 		super();
 		this.getResults = this.getResults.bind(this);
@@ -31,6 +31,6 @@ const mapStateToProps = (state, props) => {
 	}
 } 
 
-const Container = connect(mapStateToProps)(Game)
+const Container = connect(mapStateToProps)(Search)
 
 module.exports = Container;

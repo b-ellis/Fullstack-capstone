@@ -70,7 +70,7 @@ const userLogin = (user) => {
 				const hash = new Buffer(`${username}:${password}`).toString('base64');
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message));
-				browserHistory.push('/pickems');
+				browserHistory.push('/search');
 				return;
 			} else {
 				return dispatch(

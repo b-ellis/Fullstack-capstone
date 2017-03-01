@@ -9,8 +9,7 @@ class Navbar extends React.Component {
 		return(
 			<div>
 				<ul>
-					<li><Link to='pickems'>Game</Link></li>
-					<li><Link to='/leaderboard'>Leaderboard</Link></li>
+					<li><Link to='search'>Search</Link></li>
 					<li><Link to='/profile'>Profile</Link></li>
 					<li><Link>Sign Out</Link></li>
 				</ul>

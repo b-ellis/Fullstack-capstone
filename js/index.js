@@ -8,16 +8,15 @@ import store from './store';
 
 import Login from './pages/login/components/App';
 import Application from './pages/application/components/app';
-import Game from './pages/game/components/Game';
+import Search from './pages/search/components/Game';
 import Leaderboard from './pages/leaderboard/components/index.js';
 import Profile from './pages/profile/components/index.js';
 
 const routes = (
 	<Router history={browserHistory}>
 		<Route path='/' component={Login} />
-		<Route path='pickems' component={Application}>
-			<IndexRoute component={Game} />
-			<Route path='/leaderboard' component={Leaderboard} />
+		<Route path='search' component={Application}>
+			<IndexRoute component={Search} />
 			<Route path='/profile' component={Profile}/>
 		</Route>
 	</Router>
