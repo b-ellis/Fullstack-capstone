@@ -119,10 +119,12 @@ app.post('/user', (req, res) => {
 });
 
 
-app.get('/schedule', passport.authenticate('basic', {session: false}), (req, res) => {
-	const endpoint = '2016-2017-regular/full_game_schedule.json'
-	const result = getApi(endpoint);
-
+app.get('/search/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+	const result = getApi('search', {
+		q: req.params.name,
+		limit: 5,
+		type: 'artist'
+	});
 
 	result.on('end', (data) => {
 		res.json(data);
@@ -130,7 +132,7 @@ app.get('/schedule', passport.authenticate('basic', {session: false}), (req, res
 
 	result.on('error', (err) => {
 		res.status(404).json({
-			message: 'Could not contact mysportsfeeds api'
+			message: 'Could not contact api'
 		});
 	});
 });

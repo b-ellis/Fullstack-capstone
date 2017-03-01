@@ -16,19 +16,19 @@ const reducer = (state={}, action) => {
 		});
 		return resultsStateError;
 
-		case actions.GET_SCHEDULE_SUCCESS:
-		const scheduleState = Object.assign({}, state, {
-			schedule: action.schedule
+		case actions.GET_SEARCH_SUCCESS:
+		const searchState = Object.assign({}, state, {
+			results: action.results
 		});
-		return scheduleState;
+		return searchState;
 
-		case actions.GET_SCHEDULE_ERROR:
-		const scheduleStateError = Object.assign({}, state, {
+		case actions.GET_SEARCH_ERROR:
+		const searchStateError = Object.assign({}, state, {
 			error: action.error
 		});
-		return scheduleStateError;
+		return searchStateError;
 	}
 	return state;
 }
 
-exports.gameReducer = reducer;
+exports.searchReducer = reducer;

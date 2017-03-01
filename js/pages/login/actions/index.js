@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
 const postUserSuccess = (data) => {
@@ -70,7 +70,7 @@ const userLogin = (user) => {
 				const hash = new Buffer(`${username}:${password}`).toString('base64');
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message));
-				browserHistory.push('/search');
+				hashHistory.push('/search');
 				return;
 			} else {
 				return dispatch(

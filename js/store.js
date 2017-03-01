@@ -3,12 +3,12 @@ import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 
 import { loginReducer } from './pages/login/reducers/index';
-import { gameReducer } from './pages/game/reducers/index';
+import { searchReducer } from './pages/search/reducers/index';
 
 const combinedReducer = combineReducers({
 	loginReducer: loginReducer,
 	form: formReducer,
-	gameReducer: gameReducer
+	searchReducer: searchReducer
 });
 
 const middleware = applyMiddleware(thunk);

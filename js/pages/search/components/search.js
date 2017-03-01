@@ -1,25 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router'
 
 import actions from '../actions/index';
+import Form from './form';
 
 class Search extends React.Component {
 	constructor(){
 		super();
-		this.getResults = this.getResults.bind(this);
-		this.getSchedule = this.getSchedule.bind(this);
+		this.searchArtist = this.searchArtist.bind(this)
 	}
-	getResults(){
-		this.props.dispatch(actions.getResults())
-	}
-	getSchedule(){
-		this.props.dispatch(actions.getSchedule())
+	searchArtist(e){
+		e.preventDefault();
+		const artist = e.target.artist.value;
+		this.props.dispatch(actions.getSearch(artist))
 	}
 	render(){
+		const artistList = [];
+		if(this.props.state.searchReducer.results){
+			const spotifyList = this.props.state.searchReducer.results.artists.items;
+			for(var i = 0; i < 5; i ++){
+				let item = 
+						<li key={i}>
+							<Link to={'/artist/' + spotifyList[i].name}><h3>{spotifyList[i].name}</h3></Link>
+						</li>
+				artistList.push(item);
+			}
+		}
 		return(
 			<div>
-				<button onClick={this.getResults}>Results</button>
-				<button onClick={this.getSchedule}>Schedule</button>
+				<Form onSubmit={this.searchArtist}/>
+				<ul>{artistList}</ul>
 			</div>
 		)
 	}
