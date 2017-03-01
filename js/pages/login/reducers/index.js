@@ -2,13 +2,10 @@ import { reducer as formReducer } from 'redux-form';
 import { combineReducers } from 'redux';
 import actions from '../actions/index';
 
-const State = {
-	// message: null,
-	// username: null
-}
 
-const reducer = (state={}, action) => {
-	// state = State || state;
+const reducer = (state={
+	loggedin: false
+}, action) => {
 
 	switch(action.type) {
 		case actions.POST_USER_SUCCESS:
@@ -25,7 +22,8 @@ const reducer = (state={}, action) => {
 
 		case actions.USER_LOGIN_SUCCESS:
 		const loginState = Object.assign({}, state, {
-			data: action.data
+			data: action.data,
+			loggedin: true
 		});
 		return loginState;
 
@@ -47,26 +45,8 @@ const reducer = (state={}, action) => {
 			error: action.error
 		});
 		return userStateError;
-
-		case actions.CHECK_USERPASS_SUCCESS:
-		const userpassState = Object.assign({}, state, {
-			loginMessage: action.loginMessage
-		});
-		console.log(userpassState)
-		return userpassState;
-
-		case actions.CHECK_USERPASS_ERROR:
-		const userpassStateError = Object.assign({}, state, {
-			error: action.error
-		});
-		return userpassStateError;
 	}
 	return state;
 }
 
-const combinedReducer = combineReducers({
-	reducer: reducer,
-	form: formReducer
-})
-
-exports.combinedReducer = combinedReducer;
+exports.loginReducer = reducer

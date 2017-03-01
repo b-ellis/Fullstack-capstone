@@ -1,5 +1,6 @@
 import axios from 'axios';
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
 
 const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
 const postUserSuccess = (data) => {
@@ -52,38 +53,41 @@ const userLoginError = (error) => {
 	}
 }
 
-const fetchUserProfile = (user) => {
+const userLogin = (user) => {
 
-	// const username = user.userName;
-	// const password = user.password;
-	// const hash = new Buffer(`${username}:${password}`).toString('base64');
-	// console.log(hash)
-	// const config = {
-	// 	headers: {
-	// 		'Authorization': `Basic ${hash}`
-	// 	}
-	// };
+
+	const username = user.userName;
+	const password = user.password;
+
 	return (dispatch) => {
 		axios.post('/login', {
-			username: user.userName,
-			password: user.password,
+			username: username,
+			password: password,
 		})
 		.then((res) => {
-			console.log(res)
-			return dispatch(
-				userLoginSuccess(res)
-			)	
+			const message = res.data.message;
+			if(message === 'Success'){
+				const hash = new Buffer(`${username}:${password}`).toString('base64');
+				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
+				dispatch(userLoginSuccess(message));
+				browserHistory.push('/pickems');
+				return;
+			} else {
+				return dispatch(
+					userLoginSuccess(message)
+				)
+			}
 		})
 		.catch((err) => {
+			const errMessage = err.response.data.message;
+			console.log(errMessage)
 			return dispatch(
-				userLoginError(err)
+				userLoginError(errMessage)
 			)
 		});
 	}
 }
 
-// const hash = new Buffer(${username}:${password}).toString('base64')
-// fetch('https://httpbin.org/basic-auth/admin/secret', { headers: { 'Authorization': Basic ${hash} } })
 
 const CHECK_USER_SUCCESS = 'CHECK_USER_SUCCESS';
 const checkUserSuccess = (message, username) => {
@@ -103,13 +107,11 @@ const checkUserError = (error) => {
 }
 
 const checkUser = (username) => {
-	// console.log(username)
 		return (dispatch) => {
 		axios.post('/user', {
 			username: username,
 		})
 		.then((res) => {
-			// console.log(res)
 			return dispatch(
 				checkUserSuccess(res.data.message, res.data.username)
 			)	
@@ -118,47 +120,6 @@ const checkUser = (username) => {
 			return dispatch(
 				checkUserError(err)
 			)
-		});
-	}
-}
-
-const CHECK_USERPASS_SUCCESS = 'CHECK_USERPASS_SUCCESS';
-const checkUserpassSuccess = (message) => {
-	return{
-		type: CHECK_USERPASS_SUCCESS,
-		loginMessage: message
-	}
-}
-
-const CHECK_USERPASS_ERROR = 'CHECK_USERPASS_ERROR';
-const checkUserpassError = (error) => {
-	return{
-		type: CHECK_USERPASS_ERROR,
-		loginError: error
-	}
-}
-
-const checkUserpass = (user) => {
-	return(dispatch) => {
-		axios.post('/userpass', {
-			username: user.userName,
-			password: user.password
-		})
-		.then((res) => {
-			console.log(res.data.message)
-			const message = res.data.message;
-			if(message === 'Success'){
-				dispatch(checkUserpassSuccess(message));
-				dispatch(fetchUserProfile(user));
-				return;
-			} else {
-				return dispatch(
-					checkUserpassSuccess(message)
-				)
-			}
-		})
-		.then((err) => {
-			return dispatch(checkUserpassError(err))
 		});
 	}
 }
@@ -178,7 +139,7 @@ exports.userLoginSuccess = userLoginSuccess;
 exports.USER_LOGIN_ERROR = USER_LOGIN_ERROR;
 exports.userLoginError = userLoginError;
 
-exports.fetchUserProfile = fetchUserProfile;
+exports.userLogin = userLogin;
 
 exports.CHECK_USER_SUCCESS = CHECK_USER_SUCCESS;
 exports.checkUserSuccess = checkUserSuccess;
@@ -187,11 +148,3 @@ exports.CHECK_USER_ERROR = CHECK_USER_ERROR;
 exports.checkUserError = checkUserError;
 
 exports.checkUser = checkUser;
-
-exports.CHECK_USERPASS_SUCCESS = CHECK_USERPASS_SUCCESS;
-exports.checkUserpassSuccess = checkUserpassSuccess;
-
-exports.CHECK_USERPASS_ERROR = CHECK_USERPASS_ERROR;
-exports.checkUserpassError = checkUserpassError;
-
-exports.checkUserpass = checkUserpass;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router';
 
 let LoginForm = (props) => {
 	let { handleSubmit, val } = props;
@@ -16,22 +17,22 @@ let LoginForm = (props) => {
 				<div>
 					<Field val={val} name='password' label='Password' type='password' component={passRenderField} />
 				</div>
-				<input type='submit' value="Sign In" onClick={handleSubmit} />
+				<Link to='/pickems'><input type='submit' value="Sign In" onClick={handleSubmit} /></Link>
 			</form>
 		</div>
 	)
 }
 
 const userRenderField = ({ val, name, input, label, type, meta: { touched, error } }) => {
-	if(val.loginMessage === "Username does not exist"){
+	if(val.error === "Username does not exist"){
 		return (
 			<div>
 				<input {...input} name={name} type={type} placeholder={label} required/>
-				<span>{val.loginMessage}</span>
+				<span>{val.error}</span>
 			</div>
 		)
 	} 
-	if(val.loginMessage === 'Success'){
+	if(val.data === 'Success'){
 		return (
 			<div>
 				<input {...input} name={name} type={type} placeholder={label} required/>
@@ -48,15 +49,15 @@ const userRenderField = ({ val, name, input, label, type, meta: { touched, error
 }
 
 const passRenderField = ({ val, name, input, label, type, meta: { touched, error } }) => {
-	if(val.loginMessage === "Incorrect password"){
+	if(val.error === "Incorrect password"){
 		return (
 			<div>
 				<input {...input} name={name} type={type} placeholder={label} required/>
-				<span>{val.loginMessage}</span>
+				<span>{val.error}</span>
 			</div>
 		)
 	} 
-	if(val.loginMessage === 'Success'){
+	if(val.data === 'Success'){
 		return (
 			<div>
 				<input {...input} name={name} type={type} placeholder={label} required/>

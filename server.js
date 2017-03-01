@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import unirest from 'unirest';
-import events from 'events'
+import events from 'events';
 
 import config from './config'; 
 import User from './models/user';
@@ -59,12 +59,9 @@ app.post('/login', (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 
-	console.log(req.headers)
-
 	User.findOne({
 		username: username
 	}, (err, user) => {
-		console.log(user);
 		if(err){
 			return res.status(500).json({
 				message: 'Failed'
@@ -72,8 +69,8 @@ app.post('/login', (req, res) => {
 		}
 
 		if(!user){
-			return res.status(500).json({
-				message: 'Incorrect username'
+			return res.status(401).json({
+				message: 'Username does not exist'
 			}); 
 		}
 
@@ -83,7 +80,7 @@ app.post('/login', (req, res) => {
 			}
 
 			if(!isVaild){
-				return res.status(500).json({
+				return res.status(401).json({
 					message: 'Incorrect password'
 				}); 
 			}
@@ -121,42 +118,8 @@ app.post('/user', (req, res) => {
 	});
 });
 
-app.post('/userpass', (req, res) => {
-	const username = req.body.username;
-	const password = req.body.password;
 
-	User.findOne({
-		username: username
-	}, (err, user) => {
-		if(err){
-			return res.status(500).json({
-				message: 'Failed'
-			});
-		}
-		if(!user){
-			return res.json({
-				message: 'Username does not exist'
-			}); 
-		}
-		user.validatePassword(password, (err, isVaild) => {
-			if(err){
-				return (err);
-			}
-
-			if(!isVaild){
-				return res.json({
-					message: 'Incorrect password'
-				}); 
-			}
-
-			return res.json({
-				message: 'Success',
-			});
-		});
-	});
-})
-
-app.get('/schedule', (req, res) => {
+app.get('/schedule', passport.authenticate('basic', {session: false}), (req, res) => {
 	const endpoint = '2016-2017-regular/full_game_schedule.json'
 	const result = getApi(endpoint);
 
@@ -172,8 +135,8 @@ app.get('/schedule', (req, res) => {
 	});
 });
 
-app.get('/results', (req, res) => {
-	const endpoint = '2016-2017-regular/scoreboard.json?fordate=20160911&'
+app.get('/results', passport.authenticate('basic', {session: false}), (req, res) => {
+	const endpoint = '2016-2017-regular/scoreboard.json?fordate=20170101&'
 	const result = getApi(endpoint);
 
 

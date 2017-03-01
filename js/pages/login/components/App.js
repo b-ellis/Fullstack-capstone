@@ -6,7 +6,7 @@ import actions from '../actions/index';
 import RegisterForm from './register';
 import LoginForm from './login';
 
-class App extends React.Component{
+class Login extends React.Component{
 	constructor(){
 		super();
 		this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
@@ -17,9 +17,7 @@ class App extends React.Component{
 		this.props.dispatch(actions.postUser(e))
 	}
 	handleSubmit(e){
-		console.log(e)
-		this.props.dispatch(actions.checkUserpass(e))
-		// this.props.dispatch(actions.fetchUserProfile(e))
+		this.props.dispatch(actions.userLogin(e))
 	}
 	checkUser(e){
 		this.props.dispatch(actions.checkUser(e.target.value))
@@ -27,8 +25,8 @@ class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<RegisterForm user={this.props.state.reducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
-				<LoginForm val={this.props.state.reducer} onSubmit={this.handleSubmit} />
+				<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
+				<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
 			</div>
 		)
 	}
@@ -40,7 +38,6 @@ const mapStateToProps = (state, props) => {
 	}
 } 
 
-const Container = connect(mapStateToProps)(App)
+const Container = connect(mapStateToProps)(Login)
 
 module.exports = Container;
-// module.exports = App;
