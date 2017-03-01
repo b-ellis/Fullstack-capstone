@@ -19,10 +19,10 @@ class Search extends React.Component {
 		const artistList = [];
 		if(this.props.state.searchReducer.results){
 			const spotifyList = this.props.state.searchReducer.results.artists.items;
-			for(var i = 0; i < 5; i ++){
+			for(var i = 0; i < spotifyList.length; i ++){
 				let item = 
 						<li key={i}>
-							<Link to={'/artist/' + spotifyList[i].name}><h3>{spotifyList[i].name}</h3></Link>
+							<h3>{spotifyList[i].name}</h3>
 						</li>
 				artistList.push(item);
 			}

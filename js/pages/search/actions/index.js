@@ -51,7 +51,6 @@ const getSearch = (artist) => {
 		axios.get('/search/' + artist )
 		// .then(res => res.json())
 		.then((res) => {
-			console.log(res)
 			return dispatch(getSearchSuccess(res.data))
 		})
 		.catch((error) => {
