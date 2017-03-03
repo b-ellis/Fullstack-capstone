@@ -12,7 +12,7 @@ import User from './models/user';
 import Profile from './models/profile';
 import { register } from './server/register';
 import { strategy } from './server/validation';
-import { getApi } from './server/api';
+import { getApi, getLastApi } from './server/api';
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -137,9 +137,12 @@ app.get('/search/:name', passport.authenticate('basic', {session: false}), (req,
 	});
 });
 
-app.get('/results', passport.authenticate('basic', {session: false}), (req, res) => {
-	const endpoint = '2016-2017-regular/scoreboard.json?fordate=20170101&'
-	const result = getApi(endpoint);
+app.get('/artist/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+	const result = getApi('search', {
+		q: req.params.name,
+		limit: 1,
+		type: 'artist'
+	});
 
 
 	result.on('end', (data) => {
@@ -148,7 +151,24 @@ app.get('/results', passport.authenticate('basic', {session: false}), (req, res)
 
 	result.on('error', (err) => {
 		res.status(404).json({
-			message: 'Could not contact mysportsfeeds api'
+			message: 'Could not contact spotify api'
+		});
+	});
+});
+
+app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+	const lastResult = getLastApi({
+		artist: req.params.name,
+		api_key: 'a8648cd3364fea6904b5f36a3e929b8f'
+	});
+	
+	lastResult.on('end', (data) => {
+		res.json(data)
+	});
+
+	lastResult.on('error', (err) => {
+		res.status(404).json({
+			message: 'Could not contact Last.fm api'
 		});
 	});
 });

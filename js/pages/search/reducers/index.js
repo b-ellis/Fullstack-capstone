@@ -4,17 +4,6 @@ import { combineReducers } from 'redux';
 const reducer = (state={}, action) => {
 
 	switch(action.type){
-		case actions.GET_RESULTS_SUCCESS:
-		const resultsState = Object.assign({}, state, {
-			results: action.results
-		});
-		return resultsState;
-
-		case actions.GET_RESULTS_ERROR:
-		const resultsStateError = Object.assign({}, state, {
-			error: action.error
-		});
-		return resultsStateError;
 
 		case actions.GET_SEARCH_SUCCESS:
 		const searchState = Object.assign({}, state, {
@@ -27,6 +16,12 @@ const reducer = (state={}, action) => {
 			error: action.error
 		});
 		return searchStateError;
+
+		case actions.STORE_ARTIST:
+		const artistState = Object.assign({}, state, {
+			artist: action.artist
+		});
+		return artistState;
 	}
 	return state;
 }

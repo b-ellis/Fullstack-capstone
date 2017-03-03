@@ -8,22 +8,37 @@ import Form from './form';
 class Search extends React.Component {
 	constructor(){
 		super();
-		this.searchArtist = this.searchArtist.bind(this)
+		this.searchArtist = this.searchArtist.bind(this);
+		this.storeArtist = this.storeArtist.bind(this);
 	}
 	searchArtist(e){
 		e.preventDefault();
 		const artist = e.target.artist.value;
 		this.props.dispatch(actions.getSearch(artist))
 	}
+	storeArtist(e){
+		const artist = e.target.className;
+		this.props.dispatch(actions.storeArtist(artist))
+	}
 	render(){
 		const artistList = [];
 		if(this.props.state.searchReducer.results){
 			const spotifyList = this.props.state.searchReducer.results.artists.items;
+			const header = (name) => {
+				if(/\s/.test(name)){
+					name = name.replace(/\s+/g, '%20');
+					return name;
+				} else {
+					return name;
+				}
+			}
 			for(var i = 0; i < spotifyList.length; i ++){
 				let item = 
-						<li key={i}>
-							<h3>{spotifyList[i].name}</h3>
-						</li>
+					<li key={i}>
+						<Link to={'/artist/' + header(spotifyList[i].name)} onClick={this.storeArtist}>
+							<h3 className={spotifyList[i].name}>{spotifyList[i].name}</h3>
+						</Link>
+					</li>
 				artistList.push(item);
 			}
 		}

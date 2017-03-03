@@ -1,35 +1,5 @@
 import axios from 'axios';
 
-const GET_RESULTS_SUCCESS = 'GET_RESULTS_SUCCESS';
-const getResultsSuccess = (results) => {
-	return{
-		type: GET_RESULTS_SUCCESS,
-		results: results
-	}
-}
-
-const GET_RESULTS_ERROR = 'GET_RESULTS_ERROR';
-const getResultsError = (error) => {
-	return {
-		type: GET_RESULTS_ERROR,
-		error: error
-	}
-}
-
-const getResults = () => {
-	return (dispatch) => {
-		axios.get('/results')
-		// .then(res => res.json())
-		.then((res) => {
-			console.log(res.data);
-			return dispatch(getResultsSuccess(res.data))
-		})
-		.catch((error) => {
-			return dispatch(getResultsError(error))
-		});
-	}
-}
-
 const GET_SEARCH_SUCCESS = 'GET_SEARCH_SUCCESS';
 const getSearchSuccess = (results) => {
 	return{
@@ -59,15 +29,13 @@ const getSearch = (artist) => {
 	}
 }
 
-
-
-// exports.GET_RESULTS_SUCCESS = GET_RESULTS_SUCCESS;
-// exports.getResultsSuccess = getResultsSuccess;
-
-// exports.GET_RESULTS_ERROR = GET_RESULTS_ERROR;
-// exports.getResultsError = getResultsError;
-
-// exports.getResults = getResults;
+const STORE_ARTIST = 'STORE_ARTIST';
+const storeArtist = (artist) => {
+	return {
+		type: STORE_ARTIST,
+		artist: artist
+	}
+}
 
 exports.GET_SEARCH_SUCCESS = GET_SEARCH_SUCCESS;
 exports.getSearchSuccess = getSearchSuccess;
@@ -76,3 +44,6 @@ exports.GET_SEARCH_ERROR = GET_SEARCH_ERROR;
 exports.getSearchError = getSearchError;
 
 exports.getSearch = getSearch;
+
+exports.STORE_ARTIST = STORE_ARTIST;
+exports.storeArtist = storeArtist;

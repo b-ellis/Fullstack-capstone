@@ -2,13 +2,15 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 
-import { loginReducer } from './pages/login/reducers/index';
+// import { loginReducer } from './pages/login/reducers/index';
 import { searchReducer } from './pages/search/reducers/index';
+import { artistReducer } from './pages/artists/reducers/index';
 
 const combinedReducer = combineReducers({
-	loginReducer: loginReducer,
+	// loginReducer: loginReducer,
 	form: formReducer,
-	searchReducer: searchReducer
+	searchReducer: searchReducer,
+	artistReducer: artistReducer
 });
 
 const middleware = applyMiddleware(thunk);
