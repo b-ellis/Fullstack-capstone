@@ -1,24 +1,107 @@
 import React from 'react'
 import { connect } from 'react-redux';
 
+
+import actions from '../actions/index';
+import { storeArtist } from '../../search/actions/index';
+
+import Loading from 'react-Loading';
+// import LoadingPage from './loading';
 import Artistnavbar from './artistnav';
+import Artists from './artists.js';
+import Bio from './bio';
+import Concert from './concerts';
 
 
 class ArtistPage extends React.Component{
 	constructor(){
 		super();
+		this.changeNavigation = this.changeNavigation.bind(this);
+		this.storeArtist = this.storeArtist.bind(this);
+		this.state = {
+			page: 'artist',
+			artist: null
+		}
+	}
+	componentWillMount(){
+		this.setState({
+			artist: this.props.routeParams.name
+		})
+		const artist = this.props.routeParams.name;
+		console.log(artist)
+		this.props.dispatch(storeArtist(artist));
+		this.props.dispatch(actions.getSpotifyArtist(artist));
+		this.props.dispatch(actions.getLastInfo(artist));
+	}
+	componentWillReceiveProps(nextProp){
+		if(nextProp.routeParams.name !== this.props.routeParams.name){
+			this.props.dispatch(actions.getSpotifyArtist(nextProp.routeParams.name));
+			this.props.dispatch(actions.getLastInfo(nextProp.routeParams.name));
+		}
+	}
+	changeNavigation(page){
+		this.setState({
+			page: page
+		})
+	}
+	storeArtist(e){
+		let artist = e.target.className;
+		this.setState({
+			artist: artist
+		})
+		this.props.dispatch(storeArtist(artist));
+		this.props.dispatch(actions.getSpotifyArtist(artist));
+		this.props.dispatch(actions.getLastInfo(artist));
 	}
 	render(){
-		return(
-			<div>
-				<Artistnavbar state={this.props.state}/>
+		if(!this.props.state.artistReducer.artist){
+			return(
 				<div>
-					{this.props.children}
+					<Artistnavbar onClick={this.changeNavigation} state={this.props.state}/>
+					<div>
+						<Loading type='bars' color='#e3e3e3' />
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}
+		switch(this.state.page){
+
+			case 'artist':
+			return(
+				<div>
+					<Artistnavbar onClick={this.changeNavigation} state={this.props.state}/>
+					<div>
+						<Artists storeArtist={this.storeArtist} dispatch={this.props.dispatch} 
+						name={this.props.routeParams.name} artists={this.state.artist} 
+						image={this.props.state.artistReducer.artist.images[0].url}
+						related={this.props.state.artistReducer.artist.related} />
+					</div>
+				</div>
+			);
+
+			case 'bio':
+			return(
+				<div>
+					<Artistnavbar onClick={this.changeNavigation} state={this.props.state}/>
+					<div>
+						<Bio name={this.props.routeParams.name}  artists={this.props.state}/>
+					</div>
+				</div>
+			);
+
+			case 'concerts':
+			return(
+				<div>
+					<Artistnavbar onClick={this.changeNavigation} state={this.props.state}/>
+					<div>
+						<Concert name={this.props.routeParams.name}  artist={this.props.state}/>
+					</div>
+				</div>
+			);
+		}
 	}
 }
+
 
 const mapStateToProps = (state, props) => {
 	return{

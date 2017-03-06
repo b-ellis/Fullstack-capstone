@@ -35,7 +35,7 @@ class Search extends React.Component {
 			for(var i = 0; i < spotifyList.length; i ++){
 				let item = 
 					<li key={i}>
-						<Link to={'/artist/' + header(spotifyList[i].name)} onClick={this.storeArtist}>
+						<Link to={'/artist/' + header(spotifyList[i].name)} >
 							<h3 className={spotifyList[i].name}>{spotifyList[i].name}</h3>
 						</Link>
 					</li>

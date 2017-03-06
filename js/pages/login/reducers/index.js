@@ -23,6 +23,7 @@ const reducer = (state={
 		case actions.USER_LOGIN_SUCCESS:
 		const loginState = Object.assign({}, state, {
 			data: action.data,
+			username: action.username,
 			loggedin: true
 		});
 		return loginState;

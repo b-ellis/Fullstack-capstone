@@ -38,10 +38,11 @@ const postUser = (user) => {
 }
 
 const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
-const userLoginSuccess = (data) => {
+const userLoginSuccess = (data, username) => {
 	return{
 		type: USER_LOGIN_SUCCESS,
-		data: data
+		data: data,
+		username: username
 	}
 }
 
@@ -65,11 +66,12 @@ const userLogin = (user) => {
 			password: password,
 		})
 		.then((res) => {
+			console.log(res.data);
 			const message = res.data.message;
 			if(message === 'Success'){
 				const hash = new Buffer(`${username}:${password}`).toString('base64');
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
-				dispatch(userLoginSuccess(message));
+				dispatch(userLoginSuccess(message, res.data.username));
 				hashHistory.push('/search');
 				return;
 			} else {

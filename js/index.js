@@ -1,7 +1,7 @@
 require('babel-polyfill');
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, hashHistory, IndexRoute, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 
 import store from './store';
@@ -12,6 +12,7 @@ import Application from './pages/application/components/app';
 import ArtistPage from './pages/artists/components/ArtistPage.js';
 import Artists from './pages/artists/components/artists.js';
 import Bio from './pages/artists/components/bio.js';
+import Concert from './pages/artists/components/concerts.js';
 import Search from './pages/search/components/search';
 import Profile from './pages/profile/components/index.js';
 
@@ -22,8 +23,7 @@ const routes = (
 			<IndexRoute component={Search} />
 			<Route path='/profile' component={Profile} />
 			<Route path='/artist/:name' component={ArtistPage}>
-				<IndexRoute component={Artists} />
-				<Route path='/artist/:name/bio' component={Bio} />
+				<Redirect from='/artist/:name' to='/artist/:name' />
 			</Route>
 		</Route>
 	</Router>

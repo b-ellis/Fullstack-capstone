@@ -7,11 +7,11 @@ class Bio extends React.Component{
 	constructor(){
 		super();
 	}
-	componentWillMount(){
-		this.props.dispatch(actions.getLastInfo(this.props.state.searchReducer.artist));
+	componentDidMount(){
+		console.log('bio');
 	}
 	render(){
-		const art = this.props.state.artistReducer;
+		const art = this.props.artists.artistReducer;
 		let info;
 		if(art){
 			const artistInfo = art.artistInfo.artist.bio.content;
@@ -19,19 +19,11 @@ class Bio extends React.Component{
 		}
 		return(
 			<div>
-				<h3>Bio</h3>
+				<h3>{this.props.name} Bio</h3>
 				{info}
 			</div>
 		)
 	}
 }
 
-const mapStateToProps = (state, props) => {
-	return{
-		state
-	}
-} 
-
-const Container = connect(mapStateToProps)(Bio)
-
-module.exports = Container;
+module.exports = Bio;

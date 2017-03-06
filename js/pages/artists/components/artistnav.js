@@ -6,13 +6,21 @@ class Artistnavbar extends React.Component {
 		super();
 	}
 	render(){
+		const artist = this.props.state.searchReducer.artist;
+		const header = (name) => {
+			if(/\s/.test(name)){
+				name = name.replace(/\s+/g, '%20');
+				return name;
+			} else {
+				return name;
+			}
+		}
 		return(
 			<div>
 				<ul>
-					<li><Link to={'/artist/'+ this.props.state.searchReducer.artist}>Artist Profile</Link></li>
-					<li><Link to={'/artist/'+ this.props.state.searchReducer.artist +'/bio'}>Bio</Link></li>
-					<li><Link to={'/artist/'+ this.props.state.searchReducer.artist + '/concerts'}>Concerts</Link></li>
-					<li><Link>Chat</Link></li>
+					<li><button onClick={() => {this.props.onClick('artist')}}>Artist Profile</button></li>
+					<li><button onClick={() => {this.props.onClick('bio')}}>Bio</button></li>
+					<li><button onClick={() => {this.props.onClick('concerts')}}>Concerts</button></li>
 				</ul>
 			</div>
 		)

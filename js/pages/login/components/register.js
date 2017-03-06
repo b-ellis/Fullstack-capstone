@@ -9,9 +9,6 @@ const validate = (values, props) => {
 	if(!values.username){
 		errors.username = 'Required'
 	}
-	// if(values.username === props.user.username){
-	// 	errors.username = 'Username already exists'
-	// }
 	if(!values.password){
 		errors.password = 'Required'
 	}

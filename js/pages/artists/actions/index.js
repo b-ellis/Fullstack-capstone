@@ -20,7 +20,6 @@ const getSpotifyArtist = (artist) => {
 	return (dispatch) => {
 		axios.get('/artist/' + artist )
 		.then((res) => {
-			console.log(res.data)
 			return dispatch(getSpotifyArtistSuccess(res.data))
 		})
 		.catch((error) => {
@@ -57,6 +56,34 @@ const getLastInfo = (artist) => {
 	}
 }
 
+const GET_BANDSINTOWN_SUCCESS = 'GET_BANDSINTOWN_SUCCESS';
+const getBandsintownSuccess = (concerts) => {
+	return{
+		type: GET_BANDSINTOWN_SUCCESS,
+		concerts: concerts
+	}
+}
+
+const GET_BANDSINTOWN_ERROR = 'GET_BANDSINTOWN_ERROR';
+const getBandsintownError = (error) => {
+	return{
+		type: GET_BANDSINTOWN_ERROR,
+		error: error
+	}
+}
+
+const getBandsintown = (artist) => {
+	return(dispatch) => {
+		axios.get('/artistconcert/' + artist)
+		.then((res) => {
+			return dispatch(getBandsintownSuccess(res.data))
+		})
+		.catch((error) => {
+			return dispatch(getBandsintownError(error))
+		});
+	}
+}
+
 exports.GET_SPOTIFYARTIST_SUCCESS = GET_SPOTIFYARTIST_SUCCESS;
 exports.getSpotifyArtistSuccess = getSpotifyArtistSuccess;
 
@@ -72,3 +99,11 @@ exports.GET_LASTINFO_ERROR = GET_LASTINFO_ERROR;
 exports.getLastInfoError = getLastInfoError;
 
 exports.getLastInfo = getLastInfo;
+
+exports.GET_BANDSINTOWN_SUCCESS = GET_BANDSINTOWN_SUCCESS;
+exports.getBandsintownSuccess = getBandsintownSuccess;
+
+exports.GET_BANDSINTOWN_ERROR = GET_BANDSINTOWN_ERROR;
+exports.getBandsintownError = getBandsintownError;
+
+exports.getBandsintown = getBandsintown;

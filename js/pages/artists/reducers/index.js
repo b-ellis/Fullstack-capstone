@@ -15,6 +15,12 @@ const artistReducer = (state={}, action) => {
 			artistInfo: action.artistInfo
 		});
 		return lastInfoState;
+
+		case actions.GET_BANDSINTOWN_SUCCESS:
+		const concertState = Object.assign({}, state, {
+			concerts: action.concerts
+		});
+		return concertState;
 	}
 
 	return state;

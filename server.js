@@ -12,7 +12,7 @@ import User from './models/user';
 import Profile from './models/profile';
 import { register } from './server/register';
 import { strategy } from './server/validation';
-import { getApi, getLastApi } from './server/api';
+import { getApi, getLastApi, getJambaseApi } from './server/api';
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -87,6 +87,7 @@ app.post('/login', (req, res) => {
 
 			return res.json({
 				message: 'Success',
+				username: req.body.username
 			});
 		});
 	});
@@ -118,6 +119,22 @@ app.post('/user', (req, res) => {
 	});
 });
 
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('user/:username', passport.authenticate('basic', {session: false}), (req, res) => {
+	console.log(req.headers);
+	let username = req.params.username;
+	// if(!username){
+		
+	// }
+	User.findOne({
+		username: username
+	})
+});
+
 
 app.get('/search/:name', passport.authenticate('basic', {session: false}), (req, res) => {
 	const result = getApi('search', {
@@ -146,7 +163,15 @@ app.get('/artist/:name', passport.authenticate('basic', {session: false}), (req,
 
 
 	result.on('end', (data) => {
-		res.json(data);
+		const artist = data.artists.items[0];
+		const related = getApi('artists', artist.id);
+
+		related.on('end', (item) => {
+			artist.related = item.artists;
+
+			res.json(artist);
+		})
+		// res.json(data);
 	});
 
 	result.on('error', (err) => {
@@ -172,3 +197,23 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 		});
 	});
 });
+
+app.get('/artistconcert/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+	console.log(req.params.name)
+	const concertResult = getJambaseApi('artist', {
+		name: req.params.name,
+		api_key: 'vrchjvtc2yyx7wzs56hsuprd'
+	});
+
+	concertResult.on('end', (data) => {
+		console.log(data)
+		res.json(data);
+	});
+
+	concertResult.on('error', (err) => {
+		res.status(404).json({
+			message: 'Could not contact Bandsintown Api'
+		});
+	});
+});
+
