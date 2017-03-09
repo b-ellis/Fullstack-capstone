@@ -21,6 +21,12 @@ const artistReducer = (state={}, action) => {
 			concerts: action.concerts
 		});
 		return concertState;
+
+		case actions.SAVE_ARTIST_SUCCESS:
+		const artistState = Object.assign({}, state, {
+			favorite: action.artist
+		});
+		return artistState;
 	}
 
 	return state;

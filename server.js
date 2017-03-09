@@ -124,15 +124,85 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.get('user/:username', passport.authenticate('basic', {session: false}), (req, res) => {
-	console.log(req.headers);
-	let username = req.params.username;
+app.get('/user', passport.authenticate('basic', {session: false}), (req, res) => {
+	// console.log(req.headers);
+	const auth = req.headers.authorization.split('Basic ').pop();
+	const string = new Buffer(auth, 'base64')
+	const decodedUsername = string.toString();
+	const username = decodedUsername.split(':')[0];
+	// let username = req.params.username;
 	// if(!username){
-		
+
 	// }
 	User.findOne({
 		username: username
+	}, (err, user) => {
+		if(err){
+			return res.status(500).json({
+				message: 'Failed'
+			});
+		}
+		if(user){
+			return res.json({
+				username: user.username,
+				favorites: user.favorites
+			});
+		}
 	})
+});
+
+app.post('/favorite/:artist', passport.authenticate('basic', {session: false}), (req, res) => {
+
+	const auth = req.headers.authorization.split('Basic ').pop();
+	const string = new Buffer(auth, 'base64')
+	const decodedUsername = string.toString();
+	const username = decodedUsername.split(':')[0];
+
+	User.findOneAndUpdate(
+		{'username': username}, 
+		{'$addToSet': {'favorites': {
+			'artist': req.params.artist,
+			'imgurl': req.body.imgurl
+		}}}, 
+		(err, artist) => {
+		if(err){
+			console.log(err);
+			return res.status(500).json({
+				message: 'Could not save artist'
+			});
+		}
+		if(artist){
+			return res.json({
+				artist: req.params.artist
+			});
+		}
+	});
+});
+
+app.delete('/favorite/:artist', passport.authenticate('basic', {session: false}), (req, res) => {
+
+	const auth = req.headers.authorization.split('Basic ').pop();
+	const string = new Buffer(auth, 'base64')
+	const decodedUsername = string.toString();
+	const username = decodedUsername.split(':')[0];
+
+	User.findOneAndUpdate(
+		{'username': username},
+		{'$pull': {'favorites': {'artist': req.params.artist } } },
+		false,
+	(err, artist) => {
+		if(err){
+			console.log(err);
+			return res.status(500).json({
+				message: 'Could not delete artist'
+			});
+		}
+		if(artist){
+			return res.json({
+				message: req.params.artist + ' deleted'
+			});
+		};
+	});
 });
 
 

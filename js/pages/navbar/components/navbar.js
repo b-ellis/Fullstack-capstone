@@ -20,8 +20,8 @@ class Navbar extends React.Component {
 	}
 	render(){
 		return(
-			<div>
-				<ul>
+			<div className='navigation col-md-2'>
+				<ul className='navlist nav nav-pills nav-stacked'>
 					<li><Link to='search'>Search</Link></li>
 					<li><Link to='/profile'>Profile</Link></li>
 					<li><Link onClick={this.signOut}>Sign Out</Link></li>

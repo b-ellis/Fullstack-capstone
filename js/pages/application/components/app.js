@@ -8,9 +8,9 @@ class Application extends React.Component{
 	}
 	render(){
 		return(
-			<div>
-				<Navbar />
-				<div>
+			<div className='react'>
+				<Navbar className='navigation col-md-2'/>
+				<div className='page col-md-10 pre-scrollable'>
 					{this.props.children}
 				</div>
 			</div>

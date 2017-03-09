@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Tabs, Tab } from 'react-bootstrap';
 
 class Artistnavbar extends React.Component {
 	constructor(){
@@ -17,11 +18,11 @@ class Artistnavbar extends React.Component {
 		}
 		return(
 			<div>
-				<ul>
-					<li><button onClick={() => {this.props.onClick('artist')}}>Artist Profile</button></li>
-					<li><button onClick={() => {this.props.onClick('bio')}}>Bio</button></li>
-					<li><button onClick={() => {this.props.onClick('concerts')}}>Concerts</button></li>
-				</ul>
+				<Tabs defaultActiveKey={this.props.tabs} onClick={this.props.onClick} id='tabs'>
+					<Tab className='artist' eventKey={'artist'} title="Artist Page" />
+					<Tab className='bio' eventKey={'bio'} title="Bio" />
+					<Tab className='concerts' eventKey={'concerts'} title="Concerts" />
+				</Tabs>
 			</div>
 		)
 	}

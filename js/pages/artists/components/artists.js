@@ -24,7 +24,7 @@ class Artists extends React.Component {
 			}
 		}
 		const artist = this.artist;
-		let artistImage = <img src={this.props.image} />;
+		// let artistImage = <img src={this.props.image} />;
 		let playlist;
 		let related = [];
 		// 	const Playlist = art.uri;
@@ -43,9 +43,9 @@ class Artists extends React.Component {
 			<div>
 				<div>
 					<h1>{this.props.name}</h1>
-					<Button>Favorite</Button>
+					<button onClick={this.props.saveArtist}>Favorite</button>
 				</div>
-				<img src={this.props.image} />
+				<img width='250px' src={this.props.image} />
 				{playlist}
 				<ul>
 					{related}

@@ -84,6 +84,40 @@ const getBandsintown = (artist) => {
 	}
 }
 
+const SAVE_ARTIST_SUCCESS = 'SAVE_ARTIST_SUCCESS';
+const saveArtistSuccess = (artist) => {
+	return{
+		type: SAVE_ARTIST_SUCCESS,
+		favorite: artist
+	}
+}
+
+const SAVE_ARTIST_ERROR = 'SAVE_ARTIST_ERROR';
+const saveArtistError = (error) => {
+	return{
+		type: SAVE_ARTIST_ERROR,
+		error: error
+	}
+}
+
+const saveArtist = (artist, imgurl) => {
+	return(dispatch) => {
+		axios.post('/favorite/' + artist,{
+			imgurl: imgurl
+		})
+		.then((res) => {
+			return dispatch(
+				saveArtistSuccess(res.data)
+			)
+		})
+		.catch((error) => {
+			return dispatch(
+				saveArtistError(error)
+			)
+		});
+	}
+}
+
 exports.GET_SPOTIFYARTIST_SUCCESS = GET_SPOTIFYARTIST_SUCCESS;
 exports.getSpotifyArtistSuccess = getSpotifyArtistSuccess;
 
@@ -107,3 +141,11 @@ exports.GET_BANDSINTOWN_ERROR = GET_BANDSINTOWN_ERROR;
 exports.getBandsintownError = getBandsintownError;
 
 exports.getBandsintown = getBandsintown;
+
+exports.SAVE_ARTIST_SUCCESS = SAVE_ARTIST_SUCCESS;
+exports.saveArtistSuccess = saveArtistSuccess;
+
+exports.SAVE_ARTIST_ERROR = SAVE_ARTIST_ERROR;
+exports.saveArtistError = saveArtistError;
+
+exports.saveArtist = saveArtist;

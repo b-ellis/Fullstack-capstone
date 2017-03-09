@@ -5,12 +5,14 @@ import thunk from 'redux-thunk';
 import { loginReducer } from './pages/login/reducers/index';
 import { searchReducer } from './pages/search/reducers/index';
 import { artistReducer } from './pages/artists/reducers/index';
+import { userReducer } from './pages/profile/reducers/index'
 
 const combinedReducer = combineReducers({
 	loginReducer: loginReducer,
 	form: formReducer,
 	searchReducer: searchReducer,
-	artistReducer: artistReducer
+	artistReducer: artistReducer,
+	userReducer: userReducer
 });
 
 const middleware = applyMiddleware(thunk);

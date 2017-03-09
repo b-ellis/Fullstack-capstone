@@ -1,0 +1,26 @@
+html{
+	height: 100%;
+}
+body{
+	height: 100%;
+}
+#app{
+	height: 100%;
+}
+.react{
+	height: 100%;
+}
+.navigation{
+	height: 100%
+}
+.navlist{
+	margin-top: 100%;
+	padding: 20%;
+}
+.page{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	height: 100%;
+    overflow: auto;
+    min-height: 100%;
+}

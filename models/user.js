@@ -4,9 +4,14 @@ import bcrypt from 'bcryptjs';
 
 mongoose.Promise = require('bluebird');
 
+const artists = new mongoose.Schema({
+	artist: {type: String} 
+})
+
 const userSchema = new mongoose.Schema({
 	username: {type: String, required: true, unique: true},
 	password: {type: String, required:true},
+	favorites: {type: Array}
 });
 
 userSchema.methods.validatePassword = function(password, callback) {
