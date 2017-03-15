@@ -11,10 +11,19 @@ class Login extends React.Component{
 		super();
 		this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.checkUser = this.checkUser.bind(this)
+		this.checkUser = this.checkUser.bind(this);
+		this.registerUser = this.registerUser.bind(this);
+		this.loginUser = this.loginUser.bind(this);
+		this.state = {
+			form: 'login'
+		}
+	}
+	componentWillMount(){
+		this.props.dispatch(actions.checkUserAuth())
 	}
 	handleRegisterSubmit(e){
-		this.props.dispatch(actions.postUser(e))
+		this.props.dispatch(actions.postUser(e), actions.userLogin(e));
+		
 	}
 	handleSubmit(e){
 		this.props.dispatch(actions.userLogin(e))
@@ -22,13 +31,39 @@ class Login extends React.Component{
 	checkUser(e){
 		this.props.dispatch(actions.checkUser(e.target.value))
 	}
+	registerUser(){
+		this.setState({
+			form: 'register'
+		});
+	}
+	loginUser(){
+		this.setState({
+			form: 'login'
+		})
+	}
 	render(){
-		return(
-			<div>
-				<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
-				<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
-			</div>
-		)
+		switch(this.state.form){
+			case 'login':
+			return (
+				<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+					<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
+					<div>
+						New User?<br />
+						<span style={{cursor:'pointer', color:'blue'}} onClick={this.registerUser}>Register Here</span>
+					</div>
+				</div>
+			)
+			case 'register':
+			return(
+				<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+					<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
+					<div>
+						Already Have An Account<br />
+						<span style={{cursor:'pointer', color:'blue'}} onClick={this.loginUser}>Login</span>
+					</div>
+				</div>
+			)
+		}
 	}
 }
 

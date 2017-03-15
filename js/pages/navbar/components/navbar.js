@@ -9,10 +9,15 @@ class Navbar extends React.Component {
 		this.signOut = this.signOut.bind(this)
 	}
 	signOut(){
-		axios.get('/logout')
+		axios.post('/logout')
 		.then((res) => {
-			console.log(res)
-			hashHistory.push('/');
+			console.log(res);
+			if(res.data.message === 'Logged Out'){
+				// axios.defaults.headers.common['Authorization'] = '';
+				hashHistory.push('/')
+			}
+			// axios.defaults.headers.common['Authorization'] = '';
+			// hashHistory.push('/');
 		})
 		.catch((err) => {
 			console.log(err)
@@ -20,12 +25,20 @@ class Navbar extends React.Component {
 	}
 	render(){
 		return(
-			<div className='navigation col-md-2'>
-				<ul className='navlist nav nav-pills nav-stacked'>
-					<li><Link to='search'>Search</Link></li>
-					<li><Link to='/profile'>Profile</Link></li>
-					<li><Link onClick={this.signOut}>Sign Out</Link></li>
-				</ul>
+			<div className='navigation'>
+				<nav className='navbar navbar-inverse'>
+					<div className="container-fluid">
+						<ul className='navlist'>
+							<div className='link-div'>
+								<li><Link to='search'>Search</Link></li>
+								<li><Link to='/profile'>Profile</Link></li>
+							</div>
+							<div className='logout-div'>
+								<li className='logout'><Link onClick={this.signOut}>Sign Out</Link></li>
+							</div>
+						</ul>
+					</div>
+				</nav>
 			</div>
 		)
 	}

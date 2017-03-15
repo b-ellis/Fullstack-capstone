@@ -29,6 +29,11 @@ const postUser = (user) => {
 				postUserSuccess(res)
 			)	
 		})
+		.then(() => {
+			return dispatch(
+				userLogin(user)
+			)
+		})
 		.catch((err) => {
 			return dispatch(
 				postUserError(err)
@@ -57,8 +62,9 @@ const userLoginError = (error) => {
 const userLogin = (user) => {
 
 
-	const username = user.userName;
+	const username = user.username;
 	const password = user.password;
+	// console.log(user);
 
 	return (dispatch) => {
 		axios.post('/login', {
@@ -66,13 +72,12 @@ const userLogin = (user) => {
 			password: password,
 		})
 		.then((res) => {
-			console.log(res.data);
 			const message = res.data.message;
 			if(message === 'Success'){
 				const hash = new Buffer(`${username}:${password}`).toString('base64');
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message, res.data.username));
-				hashHistory.push('/search');
+				hashHistory.push('/profile');
 				return;
 			} else {
 				return dispatch(
@@ -126,6 +131,41 @@ const checkUser = (username) => {
 	}
 }
 
+const CHECK_USERAUTH_SUCCESS = 'CHECK_USERAUTH_SUCCESS';
+const checkUserAuthSuccess = (message) => {
+	return{
+		type: CHECK_USERAUTH_SUCCESS,
+		auth: message
+	}
+}
+
+const CHECK_USERAUTH_ERROR = 'CHECK_USERAUTH_ERROR';
+const checkUserAuthError = (error) => {
+	return{
+		type: CHECK_USERAUTH_ERROR,
+		error: error
+	}
+}
+
+const checkUserAuth = () => {
+	return (dispatch) => {
+		axios.get('/auth')
+		.then((res) => {
+			if(res.data.message === 'user authorized'){
+				hashHistory.push('/search');
+				return dispatch(
+					checkUserAuthSuccess(res.data.message)
+				)
+			} 
+		})
+		.then((error) => {
+			return dispatch(
+				checkUserAuthError(error)
+			)
+		});
+	}
+}
+
 
 exports.POST_USER_SUCCESS = POST_USER_SUCCESS;
 exports.postUserSuccess = postUserSuccess;
@@ -150,3 +190,11 @@ exports.CHECK_USER_ERROR = CHECK_USER_ERROR;
 exports.checkUserError = checkUserError;
 
 exports.checkUser = checkUser;
+
+exports.CHECK_USERAUTH_SUCCESS = CHECK_USERAUTH_SUCCESS;
+exports.checkUserAuthSuccess = checkUserAuthSuccess;
+
+exports.CHECK_USERAUTH_ERROR = CHECK_USERAUTH_ERROR;
+exports.checkUserAuthError = checkUserAuthError;
+
+exports.checkUserAuth = checkUserAuth;

@@ -24,7 +24,6 @@ class Artists extends React.Component {
 			}
 		}
 		const artist = this.artist;
-		// let artistImage = <img src={this.props.image} />;
 		let playlist;
 		let related = [];
 		// 	const Playlist = art.uri;
@@ -32,24 +31,31 @@ class Artists extends React.Component {
 			const relatedArtists = this.props.related;
 			for(let i = 0; i<relatedArtists.length; i++){
 				const item = 
-				<li key={i}>
+				<li className='col-md-3' key={i}>
 					<Link to={'/artist/' + header(relatedArtists[i].name)} onClick={this.props.storeArtist}>
-						<p className={relatedArtists[i].name}>{relatedArtists[i].name}</p>
+						<p className={relatedArtists[i].name + ' well well-md'}>{relatedArtists[i].name}</p>
 					</Link>
 				</li>
 				related.push(item);
 			}
 		return(
 			<div>
-				<div>
-					<h1>{this.props.name}</h1>
-					<button onClick={this.props.saveArtist}>Favorite</button>
+				<div className='well well-lg'>
+					<div style={{textAlign:'center'}}>
+						<h1>{this.props.name}</h1>
+						<span className='check glyphicon glyphicon-ok' onClick={this.props.saveArtist}/>
+					</div>
+					<div style={{textAlign:'center'}}>
+						<img width='250px' src={this.props.image} />
+					</div>
 				</div>
-				<img width='250px' src={this.props.image} />
 				{playlist}
-				<ul>
-					{related}
-				</ul>
+				<div>
+					<h3 style={{textAlign:'center'}}>Related Artists</h3>
+					<ul>
+						{related}
+					</ul>
+				</div>
 			</div>
 		)
 	}

@@ -14,8 +14,8 @@ class Bio extends React.Component{
 		const art = this.props.artists.artistReducer;
 		let info;
 		if(art){
-			const artistInfo = art.artistInfo.artist.bio.content;
-			info = <p>{artistInfo}</p>
+			const artistInfo = art.artistInfo.artist.bio.content.split('<')[0];
+			info = <p className='col-md-12'>{artistInfo}</p>
 		}
 		return(
 			<div>

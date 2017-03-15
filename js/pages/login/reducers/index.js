@@ -46,6 +46,12 @@ const reducer = (state={
 			error: action.error
 		});
 		return userStateError;
+
+		case actions.CHECK_USERAUTH_SUCCESS:
+		const authState = Object.assign({}, state, {
+			auth: action.auth
+		});
+		return authState;
 	}
 	return state;
 }

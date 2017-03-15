@@ -37,7 +37,7 @@ const renderField = ({ user, name, input, label, type, meta: { asyncValidating, 
 			<div>
 			<label>{label}</label>
 				<div className={asyncValidating ? 'async-Validating' : ''}>
-					<input {...input} name={name} type={type} placeholder={label} />
+					<input {...input} name={name} type={type} placeholder={label} /><br />
 					<span>{userError}</span>
 				</div>
 			</div>
@@ -47,7 +47,7 @@ const renderField = ({ user, name, input, label, type, meta: { asyncValidating, 
 			<div>
 			<label>{label}</label>
 				<div className={asyncValidating ? 'async-Validating' : ''}>
-					<input {...input} name={name} type={type} placeholder={label} />
+					<input {...input} name={name} type={type} placeholder={label} /><br />
 					{touched && error && <span>Required</span>}
 				</div>
 			</div>
@@ -70,7 +70,7 @@ const passwordRenderField = ({ user, name, input, label, type, meta: { asyncVali
 		<div>
 		<label>{label}</label>
 			<div className={asyncValidating ? 'async-Validating' : ''}>
-				<input {...input} name={name} type={type} placeholder={label} />
+				<input {...input} name={name} type={type} placeholder={label} /><br />
 				{touched && error && <span>{error}</span>}
 			</div>
 		</div>

@@ -47,6 +47,19 @@ if (require.main === module) {
     });
 }
 
+app.get('/auth',  (req, res) => {
+	// console.log(req.headers);
+	if(req.headers.authorization){
+		return res.json({
+			message: 'user authorized'
+		});
+	} else {
+		return res.json({
+			message: 'user not authorized'
+		});
+	}
+});
+
 app.post('/register', (req, res) => {
 	console.log(req.body);
 	register(req, res);
@@ -119,21 +132,29 @@ app.post('/user', (req, res) => {
 	});
 });
 
-app.get('/logout', (req, res) => {
+app.post('/logout', passport.authenticate('basic', {session: false}), (req, res) => {
   req.logout();
-  res.redirect('/');
+  delete req.headers.authorization;
+  if(!req.headers.authorization){
+  	return res.json({
+  		message: 'Logged Out'
+  	});
+  } else {
+  	return res.status(500).json({
+  		message: 'Auth Header Still Set'
+  	});
+  }
+
 });
 
 app.get('/user', passport.authenticate('basic', {session: false}), (req, res) => {
-	// console.log(req.headers);
+	
 	const auth = req.headers.authorization.split('Basic ').pop();
 	const string = new Buffer(auth, 'base64')
 	const decodedUsername = string.toString();
 	const username = decodedUsername.split(':')[0];
-	// let username = req.params.username;
-	// if(!username){
 
-	// }
+
 	User.findOne({
 		username: username
 	}, (err, user) => {
@@ -147,6 +168,10 @@ app.get('/user', passport.authenticate('basic', {session: false}), (req, res) =>
 				username: user.username,
 				favorites: user.favorites
 			});
+		} else {
+			return res.json({
+				message: 'user not logged in'
+			})
 		}
 	})
 });

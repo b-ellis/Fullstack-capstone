@@ -6,7 +6,6 @@ import actions from '../actions/index';
 import { storeArtist } from '../../search/actions/index';
 
 import Loading from 'react-Loading';
-// import LoadingPage from './loading';
 import Artistnavbar from './artistnav';
 import Artists from './artists.js';
 import Bio from './bio';
@@ -21,8 +20,7 @@ class ArtistPage extends React.Component{
 		this.saveArtist = this.saveArtist.bind(this);
 		this.state = {
 			page: 'artist',
-			artist: null,
-			// tabs: 'bio'
+			artist: null
 		}
 	}
 	componentWillMount(){
@@ -41,10 +39,6 @@ class ArtistPage extends React.Component{
 			this.props.dispatch(actions.getLastInfo(nextProp.routeParams.name));
 		}
 	}
-	// handelSelect(key){
-	// 	this.setState({key})
-	// 	this.props.onClick(this.state.key)
-	// }
 	changeNavigation(page){
 		page = page.target.id;
 		page = page.split('tabs-tab-').join("");
@@ -54,6 +48,8 @@ class ArtistPage extends React.Component{
 	}
 	storeArtist(e){
 		let artist = e.target.className;
+		// console.log(artist.split('well')[0]);
+		artist = artist.split('well')[0];
 		this.setState({
 			artist: artist
 		})
@@ -66,14 +62,14 @@ class ArtistPage extends React.Component{
 		this.props.dispatch(actions.saveArtist(this.state.artist, this.props.state.artistReducer.artist.images[0].url))
 	}
 	componentWillUnmount(){
-		console.log(this.state.artist + ' did unmount')
+		// console.log(this.state.artist + ' did unmount')
 	}
 	render(){
 		if(!this.props.state.artistReducer.artist || this.props.state.artistReducer.artist.name !== this.props.routeParams.name){
 			return(
 				<div>
 					<Artistnavbar tabs={this.state.page} onClick={this.changeNavigation} state={this.props.state}/>
-					<div>
+					<div style={{margin:'15% 53% 0% 47%'}}>
 						<Loading type='bars' color='#e3e3e3' />
 					</div>
 				</div>
@@ -90,7 +86,8 @@ class ArtistPage extends React.Component{
 						name={this.props.routeParams.name} artists={this.state.artist} 
 						image={this.props.state.artistReducer.artist.images[0].url}
 						related={this.props.state.artistReducer.artist.related}
-						saveArtist={this.saveArtist} />
+						saveArtist={this.saveArtist}
+						favoriteArray={this.props.state.userReducer.user.favorites} />
 					</div>
 				</div>
 			);

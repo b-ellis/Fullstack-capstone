@@ -14,13 +14,17 @@ class Profile extends React.Component {
 		this.props.dispatch(actions.getProfile());
 	}
 	deleteArtist(e){
-		this.props.dispatch(actions.deleteArtist(e.target.className));
+		const artist = e.target.className.split('remove ')[1];
+		this.props.dispatch(actions.deleteArtist(artist));
 		this.props.dispatch(actions.getProfile());
+	}
+	componentWillUnmount(){
+		this.props.state.userReducer = {}
 	}
 	render(){
 		if(!this.props.state.userReducer.user){
 			return(
-				<div>
+				<div style={{margin:'15% 53% 0% 47%'}}>
 					<Loading type='bars' color='#e3e3e3' />
 				</div>
 			)
@@ -40,10 +44,12 @@ class Profile extends React.Component {
 			for(let i=0;i<artistlength;i++){
 				const artistDiv =
 					<li key={i}>
-						<div>
-							<Link to={'/artist/' + header(artist[i].artist)}>{artist[i].artist}</Link><br />
-							<img width='100px' height='100px' src={artist[i].imgurl} /><br />
-							<button className={artist[i].artist} onClick={this.deleteArtist}>Remove</button>
+						<div style={{textAlign:'center'}} className='frame col-md-4 well well-md'>
+							<span className={'x glyphicon glyphicon-remove ' + artist[i].artist} onClick={this.deleteArtist}/>
+							<Link to={'/artist/' + header(artist[i].artist)}>
+								{artist[i].artist}<br />
+								<img className='image' src={artist[i].imgurl} />
+							</Link><br />
 						</div>
 					</li>
 				favoriteArtists.push(artistDiv)
@@ -53,7 +59,7 @@ class Profile extends React.Component {
 					<h1>{this.props.state.userReducer.user.username + "'s "}Profile</h1>
 					<div>
 						Favortie Artists
-						<ul>
+						<ul className='favorite-artists'>
 							{favoriteArtists}
 						</ul>
 					</div>

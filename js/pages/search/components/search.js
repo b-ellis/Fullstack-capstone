@@ -20,6 +20,9 @@ class Search extends React.Component {
 		const artist = e.target.className;
 		this.props.dispatch(actions.storeArtist(artist))
 	}
+	componentWillUnmount(){
+		this.props.state.searchReducer = {};
+	}
 	render(){
 		const artistList = [];
 		if(this.props.state.searchReducer.results){
@@ -45,7 +48,9 @@ class Search extends React.Component {
 		return(
 			<div>
 				<Form onSubmit={this.searchArtist}/>
-				<ul>{artistList}</ul>
+				<div className='results-div'>
+					<ul>{artistList}</ul>
+				</div>
 			</div>
 		)
 	}

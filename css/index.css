@@ -4,23 +4,79 @@ html{
 body{
 	height: 100%;
 }
+ul{
+	list-style: none;
+}
+.nav-tabs{
+	border-bottom: 0px;
+}
 #app{
 	height: 100%;
 }
 .react{
 	height: 100%;
 }
+
+/*Navbar*/
 .navigation{
-	height: 100%
+	position: fixed;
+    z-index: 999;
+    width: 100%;
 }
 .navlist{
-	margin-top: 100%;
-	padding: 20%;
+	padding-left: 0px;
+	display: block;
 }
+.navlist li{
+	padding: 10px;
+}
+.link-div{
+	display: -webkit-inline-box
+}
+.logout-div{
+	float: right;
+}
+.logout{
+	cursor: pointer;
+}
+
+/*Artist page*/
 .page{
+	margin-top: 50px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	height: 100%;
     overflow: auto;
     min-height: 100%;
+}
+.check{
+	cursor: pointer;
+
+}
+
+/*Profile*/
+.favorite-artists{
+	padding-left: 0px;
+}
+.image{
+	width: 30%;
+	height: 30%;
+}
+.x{
+	float: right;
+	cursor: pointer;
+}
+.frame{
+
+}
+
+/*Search*/
+.search{
+	width: 75%!important;
+}
+.form-div{
+	padding-top: 50px;
+}
+.results-div{
+	padding-top: 150px;
 }
