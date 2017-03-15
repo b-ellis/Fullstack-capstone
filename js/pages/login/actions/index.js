@@ -78,6 +78,7 @@ const userLogin = (user) => {
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message, res.data.username));
 				hashHistory.push('/profile');
+				console.log(axios.defaults.headers.common['Authorization']);
 				return;
 			} else {
 				return dispatch(
