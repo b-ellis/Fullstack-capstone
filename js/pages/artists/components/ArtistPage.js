@@ -86,8 +86,7 @@ class ArtistPage extends React.Component{
 						name={this.props.routeParams.name} artists={this.state.artist} 
 						image={this.props.state.artistReducer.artist.images[0].url}
 						related={this.props.state.artistReducer.artist.related}
-						saveArtist={this.saveArtist}
-						favoriteArray={this.props.state.userReducer.user.favorites} />
+						saveArtist={this.saveArtist} />
 					</div>
 				</div>
 			);
