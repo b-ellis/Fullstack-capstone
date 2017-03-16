@@ -101,15 +101,15 @@ class ArtistPage extends React.Component{
 				</div>
 			);
 
-			case 'concerts':
-			return(
-				<div>
-					<Artistnavbar tabs={this.state.tabs} onClick={this.changeNavigation} state={this.props.state}/>
-					<div>
-						<Concert name={this.props.routeParams.name}  artist={this.props.state}/>
-					</div>
-				</div>
-			);
+			// case 'concerts':
+			// return(
+			// 	<div>
+			// 		<Artistnavbar tabs={this.state.tabs} onClick={this.changeNavigation} state={this.props.state}/>
+			// 		<div>
+			// 			<Concert name={this.props.routeParams.name}  artist={this.props.state}/>
+			// 		</div>
+			// 	</div>
+			// );
 		}
 	}
 }

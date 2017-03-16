@@ -42,8 +42,10 @@ class Artists extends React.Component {
 			<div>
 				<div className='well well-lg'>
 					<div style={{textAlign:'center'}}>
-						<h1>{this.props.name}</h1>
-						<span className='check glyphicon glyphicon-ok' onClick={this.props.saveArtist}/>
+						<div style={{display:'-webkit-inline-box'}}>
+							<h1>{this.props.name}</h1>
+							<h3><span style={{padding:'7px 0 0 6px', cursor:'pointer'}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.saveArtist}/></h3>
+						</div>
 					</div>
 					<div style={{textAlign:'center'}}>
 						<img width='250px' src={this.props.image} />

@@ -58,7 +58,7 @@ class Login extends React.Component{
 				<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
 					<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
 					<div>
-						Already Have An Account<br />
+						Already Have An Account?<br />
 						<span style={{cursor:'pointer', color:'blue'}} onClick={this.loginUser}>Login</span>
 					</div>
 				</div>

@@ -17,7 +17,7 @@ let LoginForm = (props) => {
 				<div>
 					<Field val={val} name='password' label='Password' type='password' component={passRenderField} />
 				</div>
-				<Link><input type='submit' value="Sign In" onClick={handleSubmit} /></Link>
+				<Link><input type='submit' className="btn btn-default" value="Sign In" onClick={handleSubmit} /></Link>
 			</form>
 		</div>
 	)
@@ -27,21 +27,23 @@ const userRenderField = ({ val, name, input, label, type, meta: { touched, error
 	if(val.error === "Username does not exist"){
 		return (
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/><br />
-				<span>{val.error}</span>
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/><br />
+				<div className="alert alert-danger" role="alert">
+					<span>{val.error}</span>
+				</div>
 			</div>
 		)
 	} 
 	if(val.data === 'Success'){
 		return (
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/>
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/>
 			</div>
 		)
 	} else {
 		return(
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/><br />
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/><br />
 				{touched && ((error && <span>{error}</span>))}
 			</div>
 		)
@@ -52,21 +54,23 @@ const passRenderField = ({ val, name, input, label, type, meta: { touched, error
 	if(val.error === "Incorrect password"){
 		return (
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/><br />
-				<span>{val.error}</span>
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/><br />
+				<div className="alert alert-danger" role="alert">
+					<span>{val.error}</span>
+				</div>
 			</div>
 		)
 	} 
 	if(val.data === 'Success'){
 		return (
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/>
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/>
 			</div>
 		)
 	} else {
 		return(
 			<div>
-				<input {...input} name={name} type={type} placeholder={label} required/><br />
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} required/><br />
 				{touched && ((error && <span>{error}</span>))}
 			</div>
 		)

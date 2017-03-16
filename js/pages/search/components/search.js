@@ -37,7 +37,7 @@ class Search extends React.Component {
 			}
 			for(var i = 0; i < spotifyList.length; i ++){
 				let item = 
-					<li key={i}>
+					<li className='col-md-8 well well-sm' key={i}>
 						<Link to={'/artist/' + header(spotifyList[i].name)} >
 							<h3 className={spotifyList[i].name}>{spotifyList[i].name}</h3>
 						</Link>
@@ -48,7 +48,7 @@ class Search extends React.Component {
 		return(
 			<div>
 				<Form onSubmit={this.searchArtist}/>
-				<div className='results-div'>
+				<div className='col-md-10 results-div'>
 					<ul>{artistList}</ul>
 				</div>
 			</div>

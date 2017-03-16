@@ -23,7 +23,7 @@ let RegisterForm = (props) => {
 			<form onSubmit={handleSubmit}>
 				<Field user={user.message} onBlur={onBlur} name='username' label='Username' type='text' component={renderField} />
 				<Field name='password' label='Password' type='password' component={passwordRenderField} />
-				<input type='submit' onClick={handleSubmit} />
+				<input type='submit' className="btn btn-default" onClick={handleSubmit} />
 			</form>
 		</div>
 	)
@@ -37,8 +37,10 @@ const renderField = ({ user, name, input, label, type, meta: { asyncValidating, 
 			<div>
 			<label>{label}</label>
 				<div className={asyncValidating ? 'async-Validating' : ''}>
-					<input {...input} name={name} type={type} placeholder={label} /><br />
-					<span>{userError}</span>
+					<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} /><br />
+					<div className="alert alert-danger" role="alert">
+						<span>{userError}</span>
+					</div>
 				</div>
 			</div>
 		)
@@ -47,8 +49,8 @@ const renderField = ({ user, name, input, label, type, meta: { asyncValidating, 
 			<div>
 			<label>{label}</label>
 				<div className={asyncValidating ? 'async-Validating' : ''}>
-					<input {...input} name={name} type={type} placeholder={label} /><br />
-					{touched && error && <span>Required</span>}
+					<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} /><br />
+					{touched && error && <div className="alert alert-danger" role="alert"><span>Required</span></div>}
 				</div>
 			</div>
 		)
@@ -57,7 +59,7 @@ const renderField = ({ user, name, input, label, type, meta: { asyncValidating, 
 			<div>
 			<label>{label}</label>
 				<div className={asyncValidating ? 'async-Validating' : ''}>
-					<input {...input} name={name} type={type} placeholder={label} />
+					<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} />
 					{touched && error && <span>{error}</span>}
 				</div>
 			</div>
@@ -70,7 +72,7 @@ const passwordRenderField = ({ user, name, input, label, type, meta: { asyncVali
 		<div>
 		<label>{label}</label>
 			<div className={asyncValidating ? 'async-Validating' : ''}>
-				<input {...input} name={name} type={type} placeholder={label} /><br />
+				<input style={{textAlign:'center'}} className='form-control' {...input} name={name} type={type} placeholder={label} /><br />
 				{touched && error && <span>{error}</span>}
 			</div>
 		</div>

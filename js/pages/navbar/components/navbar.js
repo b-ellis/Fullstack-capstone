@@ -12,6 +12,7 @@ class Navbar extends React.Component {
 		axios.post('/logout')
 		.then((res) => {
 			console.log(res);
+			console.log(axios.defaults.headers.common['Authorization'])
 			if(res.data.message === 'Logged Out'){
 				axios.defaults.headers.common['Authorization'] = '';
 				console.log(axios.defaults.headers.common['Authorization'])

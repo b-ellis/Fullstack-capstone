@@ -21,11 +21,12 @@ class Artistnavbar extends React.Component {
 				<Tabs defaultActiveKey={this.props.tabs} onClick={this.props.onClick} id='tabs'>
 					<Tab className='artist' eventKey={'artist'} title="Artist Page" />
 					<Tab className='bio' eventKey={'bio'} title="Bio" />
-					<Tab className='concerts' eventKey={'concerts'} title="Concerts" />
 				</Tabs>
 			</div>
 		)
 	}
 }
+
+					// <Tab className='concerts' eventKey={'concerts'} title="Concerts" />
 
 module.exports = Artistnavbar;
