@@ -198,7 +198,8 @@ app.post('/favorite/:artist', passport.authenticate('basic', {session: false}), 
 		}
 		if(artist){
 			return res.json({
-				artist: req.params.artist
+				artist: req.params.artist,
+				star: true
 			});
 		}
 	});
@@ -293,22 +294,22 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 	});
 });
 
-app.get('/artistconcert/:name', passport.authenticate('basic', {session: false}), (req, res) => {
-	console.log(req.params.name)
-	const concertResult = getJambaseApi('artist', {
-		name: req.params.name,
-		api_key: 'vrchjvtc2yyx7wzs56hsuprd'
-	});
+// app.get('/artistconcert/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+// 	console.log(req.params.name)
+// 	const concertResult = getJambaseApi('artist', {
+// 		name: req.params.name,
+// 		api_key: 'vrchjvtc2yyx7wzs56hsuprd'
+// 	});
 
-	concertResult.on('end', (data) => {
-		console.log(data)
-		res.json(data);
-	});
+// 	concertResult.on('end', (data) => {
+// 		console.log(data)
+// 		res.json(data);
+// 	});
 
-	concertResult.on('error', (err) => {
-		res.status(404).json({
-			message: 'Could not contact Bandsintown Api'
-		});
-	});
-});
+// 	concertResult.on('error', (err) => {
+// 		res.status(404).json({
+// 			message: 'Could not contact Bandsintown Api'
+// 		});
+// 	});
+// });
 

@@ -26,6 +26,14 @@ class Artists extends React.Component {
 		const artist = this.artist;
 		let playlist;
 		let related = [];
+		let star = <span style={{padding:'7px 0 0 6px', cursor:'pointer', color:this.props.starcolor}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.saveArtist}/>;
+		for(let i=0; i<this.props.favorites.length; i++){
+			if(this.props.favorites[i].artist !== this.props.artists){
+				star = star;
+			} else {
+				star = <span style={{padding:'7px 0 0 6px', cursor:'pointer', color:'gold'}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.saveArtist}/>
+			}
+		}
 		// 	const Playlist = art.uri;
 		// 	// playlist = <iframe src={"https://embed.spotify.com/?uri=" + Playlist} width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
 			const relatedArtists = this.props.related;
@@ -44,7 +52,7 @@ class Artists extends React.Component {
 					<div style={{textAlign:'center'}}>
 						<div style={{display:'-webkit-inline-box'}}>
 							<h1>{this.props.name}</h1>
-							<h3><span style={{padding:'7px 0 0 6px', cursor:'pointer'}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.saveArtist}/></h3>
+							<h3>{star}</h3>
 						</div>
 					</div>
 					<div style={{textAlign:'center'}}>

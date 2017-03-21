@@ -103,9 +103,11 @@ const saveArtistError = (error) => {
 const saveArtist = (artist, imgurl) => {
 	return(dispatch) => {
 		axios.post('/favorite/' + artist,{
-			imgurl: imgurl
+			imgurl: imgurl,
+			star: true
 		})
 		.then((res) => {
+			console.log(res);
 			return dispatch(
 				saveArtistSuccess(res.data)
 			)

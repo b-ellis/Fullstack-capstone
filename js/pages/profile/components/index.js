@@ -58,7 +58,7 @@ class Profile extends React.Component {
 				<div>
 					<h1>{this.props.state.userReducer.user.username + "'s "}Profile</h1>
 					<div>
-						Favortie Artists
+						<h3 style={{textAlign:'center'}}>Favortie Artists</h3>
 						<ul className='favorite-artists'>
 							{favoriteArtists}
 						</ul>

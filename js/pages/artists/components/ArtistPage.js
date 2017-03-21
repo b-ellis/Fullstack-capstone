@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import actions from '../actions/index';
 import { storeArtist } from '../../search/actions/index';
+import { getProfile } from '../../profile/actions/index';
 
 import Loading from 'react-Loading';
 import Artistnavbar from './artistnav';
@@ -20,6 +21,7 @@ class ArtistPage extends React.Component{
 		this.saveArtist = this.saveArtist.bind(this);
 		this.state = {
 			page: 'artist',
+			color: 'black',
 			artist: null
 		}
 	}
@@ -32,11 +34,15 @@ class ArtistPage extends React.Component{
 		this.props.dispatch(storeArtist(artist));
 		this.props.dispatch(actions.getSpotifyArtist(artist));
 		this.props.dispatch(actions.getLastInfo(artist));
+		this.props.dispatch(getProfile());
 	}
 	componentWillReceiveProps(nextProp){
 		if(nextProp.routeParams.name !== this.props.routeParams.name){
 			this.props.dispatch(actions.getSpotifyArtist(nextProp.routeParams.name));
 			this.props.dispatch(actions.getLastInfo(nextProp.routeParams.name));
+			this.setState({
+				artist: nextProp.routeParams.name
+			})
 		}
 	}
 	changeNavigation(page){
@@ -48,8 +54,7 @@ class ArtistPage extends React.Component{
 	}
 	storeArtist(e){
 		let artist = e.target.className;
-		// console.log(artist.split('well')[0]);
-		artist = artist.split('well')[0];
+		artist = artist.split('well')[0].trim();
 		this.setState({
 			artist: artist
 		})
@@ -60,6 +65,9 @@ class ArtistPage extends React.Component{
 	saveArtist(e){
 		e.preventDefault();
 		this.props.dispatch(actions.saveArtist(this.state.artist, this.props.state.artistReducer.artist.images[0].url))
+		this.setState({
+			color: 'gold'
+		});
 	}
 	componentWillUnmount(){
 		// console.log(this.state.artist + ' did unmount')
@@ -86,7 +94,9 @@ class ArtistPage extends React.Component{
 						name={this.props.routeParams.name} artists={this.state.artist} 
 						image={this.props.state.artistReducer.artist.images[0].url}
 						related={this.props.state.artistReducer.artist.related}
-						saveArtist={this.saveArtist} />
+						saveArtist={this.saveArtist}
+						favorites={this.props.state.userReducer.user.favorites}
+						starcolor={this.state.color} />
 					</div>
 				</div>
 			);
