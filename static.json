@@ -1,0 +1,18 @@
+{
+  "root": "build/",
+  "clean_urls": false,
+  "https_only": true,
+  "routes": {
+    "/**": "index.html"
+  },
+   "headers": {
+    "/**": {
+      "Strict-Transport-Security": "max-age=86400"
+    }
+  },
+    "proxies": {
+    "/api/": {
+      "origin": "${API_URL}"
+    }
+  }
+}
