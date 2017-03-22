@@ -6,7 +6,7 @@ import actions from '../actions/index';
 import { storeArtist } from '../../search/actions/index';
 import { getProfile } from '../../profile/actions/index';
 
-import Loading from 'react-Loading';
+import Loading from 'react-loading';
 import Artistnavbar from './artistnav';
 import Artists from './artists.js';
 import Bio from './bio';

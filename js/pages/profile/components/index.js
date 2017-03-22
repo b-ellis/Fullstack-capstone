@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from 'react-Loading';
+import Loading from 'react-loading';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
