@@ -10,9 +10,9 @@
       "Strict-Transport-Security": "max-age=86400"
     }
   },
-    "proxies": {
-    "/api/": {
-      "origin": "${API_URL}"
-    }
-  }
+    // "proxies": {
+    // "/api/": {
+    //   "origin": "${API_URL}"
+    // }
+  // }
 }
