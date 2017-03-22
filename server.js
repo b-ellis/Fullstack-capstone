@@ -187,7 +187,8 @@ app.post('/favorite/:artist', passport.authenticate('basic', {session: false}), 
 		{'username': username}, 
 		{'$addToSet': {'favorites': {
 			'artist': req.params.artist,
-			'imgurl': req.body.imgurl
+			'imgurl': req.body.imgurl,
+			'star': true
 		}}}, 
 		(err, artist) => {
 		if(err){
