@@ -1,5 +1,5 @@
 import axios from 'axios';
-import hashHistory from 'react-router';
+import { hashHistory } from 'react-router';
 
 const GET_PROFILE_SUCCESS = 'GET_PROFILE_SUCCESS';
 const getProfileSuccess = (profile) => {
@@ -19,13 +19,14 @@ const getProfileError = (error) => {
 
 const getProfile = () => {
 	return (dispatch) => {
-		axios.get('/user/')
+		axios.get('/user')
 		.then((res) => {
 			return dispatch(
 				getProfileSuccess(res.data)
 			)
 		})
 		.catch((err) => {
+			console.log("user endpoint error: " + err);
 			hashHistory.push('/');
 			return dispatch(
 				getProfileError(err)

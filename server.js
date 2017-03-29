@@ -1,13 +1,13 @@
 require('babel-polyfill');
-import express from 'express'; 
-import bodyParser from 'body-parser'; 
-import mongoose from 'mongoose'; 
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import unirest from 'unirest';
 import events from 'events';
 
-import config from './config'; 
+import config from './config';
 import User from './models/user';
 import Profile from './models/profile';
 import { register } from './server/register';
@@ -63,7 +63,7 @@ app.get('/auth',  (req, res) => {
 app.post('/register', (req, res) => {
 	console.log(req.body);
 	register(req, res);
-}); 
+});
 
 passport.use(strategy);
 app.use(passport.initialize());
@@ -84,7 +84,7 @@ app.post('/login', (req, res) => {
 		if(!user){
 			return res.status(401).json({
 				message: 'Username does not exist'
-			}); 
+			});
 		}
 
 		user.validatePassword(password, (err, isVaild) => {
@@ -95,7 +95,7 @@ app.post('/login', (req, res) => {
 			if(!isVaild){
 				return res.status(401).json({
 					message: 'Incorrect password'
-				}); 
+				});
 			}
 
 			return res.json({
@@ -147,8 +147,13 @@ app.post('/logout', passport.authenticate('basic', {session: false}), (req, res)
 
 });
 
-app.get('/user', passport.authenticate('basic', {session: false}), (req, res) => {
-	
+app.get('/user_error', (req, res) => {
+    res.status(400).end();
+});
+
+app.get('/user', passport.authenticate('basic', {session: false,
+                                                failureRedirect: '/user_error'}), (req, res) => {
+
 	const auth = req.headers.authorization.split('Basic ').pop();
 	const string = new Buffer(auth, 'base64')
 	const decodedUsername = string.toString();
@@ -184,12 +189,12 @@ app.post('/favorite/:artist', passport.authenticate('basic', {session: false}), 
 	const username = decodedUsername.split(':')[0];
 
 	User.findOneAndUpdate(
-		{'username': username}, 
+		{'username': username},
 		{'$addToSet': {'favorites': {
 			'artist': req.params.artist,
 			'imgurl': req.body.imgurl,
 			'star': true
-		}}}, 
+		}}},
 		(err, artist) => {
 		if(err){
 			console.log(err);
@@ -283,7 +288,7 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 		artist: req.params.name,
 		api_key: 'a8648cd3364fea6904b5f36a3e929b8f'
 	});
-	
+
 	lastResult.on('end', (data) => {
 		res.json(data)
 	});
@@ -313,4 +318,3 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 // 		});
 // 	});
 // });
-

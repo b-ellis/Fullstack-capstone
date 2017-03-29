@@ -27,7 +27,7 @@ const postUser = (user) => {
 		.then((res) => {
 			return dispatch(
 				postUserSuccess(res)
-			)	
+			)
 		})
 		.then(() => {
 			return dispatch(
@@ -64,7 +64,7 @@ const userLogin = (user) => {
 
 	const username = user.username;
 	const password = user.password;
-	// console.log(user);
+	console.log("User logging in: " + user);
 
 	return (dispatch) => {
 		axios.post('/login', {
@@ -78,7 +78,7 @@ const userLogin = (user) => {
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message, res.data.username));
 				hashHistory.push('/profile');
-				console.log(axios.defaults.headers.common['Authorization']);
+				console.log("Header after login: " + axios.defaults.headers.common['Authorization']);
 				return;
 			} else {
 				return dispatch(
@@ -122,7 +122,7 @@ const checkUser = (username) => {
 		.then((res) => {
 			return dispatch(
 				checkUserSuccess(res.data.message, res.data.username)
-			)	
+			)
 		})
 		.catch((err) => {
 			return dispatch(
@@ -157,7 +157,7 @@ const checkUserAuth = () => {
 				return dispatch(
 					checkUserAuthSuccess(res.data.message)
 				)
-			} 
+			}
 		})
 		.then((error) => {
 			return dispatch(
