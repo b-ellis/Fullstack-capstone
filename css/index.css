@@ -2,7 +2,7 @@ html{
 	height: 100%;
 }
 body{
-	height: 100%;
+	overflow: auto;
 }
 ul{
 	list-style: none;
@@ -12,9 +12,55 @@ ul{
 }
 #app{
 	height: 100%;
+	overflow: auto;
 }
-.react{
+/*.react{
 	height: 100%;
+}*/
+
+/*Login Nav*/
+.name{
+	font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+}
+.log-nav{
+	margin: 5%;
+	margin-bottom: 0px;
+	display: -webkit-inline-box;
+    width: 90%;
+}
+.link-div{
+	width: 25%;
+}
+.link-div div{
+	list-style: none;
+	margin-left: 6rem;
+    letter-spacing: .1rem;
+    width: 10rem;
+}
+.link-div>div>a{
+	font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.logout-div{
+	float: right;
+}
+.logout-div li{
+	list-style: none;
+	display: -webkit-inline-box;
+    letter-spacing: .1rem;
+    margin-left: 6rem;
+}
+.logout-div li a{
+	font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+}
+.signOut{
+	cursor: pointer;
 }
 
 /*Navbar*/
@@ -33,21 +79,19 @@ ul{
 .link-div{
 	display: -webkit-inline-box
 }
-.logout-div{
-	float: right;
-}
+
 .logout{
 	cursor: pointer;
 }
 
 /*Artist page*/
 .page{
-	margin-top: 50px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	height: 100%;
     overflow: auto;
     min-height: 100%;
+    box-sizing: border-box;
 }
 .check{
 	cursor: pointer;
@@ -58,12 +102,50 @@ ul{
 .favorite-artists{
 	padding-left: 0px;
 }
+.img-container{
+	position: relative;
+}
 .image{
-	width: 30%;
+	margin-right: -2%;
+	width: 35%;
+	/*height: 30%;*/
+	position: relative;
+	display: block;
+  	/*width: 100%;*/
+  	height: auto;
+}
+.image:hover{
+	opacity: .5;
+	margin-right: -2%;
+	width: 35%;
 	height: 30%;
+	/*position: relative;*/
+}
+.overlay{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: .5s ease;
+}
+.img-container:hover .overlay{
+	opacity: .5;
+}
+.artistheader{
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 }
 .x{
-	float: right;
+	/*float: right;*/
 	cursor: pointer;
 }
 .frame{
@@ -79,4 +161,45 @@ ul{
 }
 .results-div{
 	padding-top: 50px;
+}
+
+/*Artist Page*/
+.artTtile{
+	position: absolute;
+	left: 20rem;
+}
+.favArtist{
+	font-family: 'Abel', sans-serif;
+	font-weight: 300;
+	letter-spacing: .5rem;
+}
+.title-container{
+	display: -webkit-box;
+	margin: 5rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.imgContainer{
+	margin-top: 5rem;
+}
+.artistImg{
+	border-radius: 1rem;
+}
+.namebiocontainer{
+	display: inline-grid;
+}
+.nameContainer{
+    margin-top: 2rem;
+	display: -webkit-inline-box;
+    margin-left: 1rem;
+}
+.nameContainer h1 {
+	font-family: 'Abel', sans-serif;
+}
+.bio{
+	text-align: left;
+	font-family: 'Abel', sans-serif;
+}
+.well{
+	font-family: 'Abel', sans-serif;
 }

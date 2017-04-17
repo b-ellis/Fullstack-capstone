@@ -35,7 +35,7 @@ class Artists extends React.Component {
 			}
 		}
 		// 	const Playlist = art.uri;
-		// 	// playlist = <iframe src={"https://embed.spotify.com/?uri=" + Playlist} width="300" height="380" frameBorder="0" allowTransparency="true"></iframe>
+		// 	// playlist = <iframe src={"https://embed.spotify.com/?uri=" + Playlist} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe>
 			const relatedArtists = this.props.related;
 			for(let i = 0; i<relatedArtists.length; i++){
 				const item = 
@@ -46,17 +46,24 @@ class Artists extends React.Component {
 				</li>
 				related.push(item);
 			}
+			const artistInfo = this.props.artistInfo.content.split('<')[0];
+			const info = <p className='bio col-md-8 pre-scrollable'>{artistInfo}</p>
 		return(
 			<div>
-				<div className='well well-lg'>
-					<div style={{textAlign:'center'}}>
-						<div style={{display:'-webkit-inline-box'}}>
-							<h1>{this.props.name}</h1>
-							<h3>{star}</h3>
+				<div>
+					<div className='title-container' style={{textAlign:'center'}}>
+						<div className='imgContainer'>
+							<img className='artistImg' width='400px' src={this.props.image} />
 						</div>
-					</div>
-					<div style={{textAlign:'center'}}>
-						<img width='250px' src={this.props.image} />
+						<div className='namebiocontainer'>
+							<div className='nameContainer'>
+								<h1>{this.props.name}</h1>
+								<h3>{star}</h3>
+							</div>
+							<div>
+								{info}
+							</div>
+						</div>
 					</div>
 				</div>
 				{playlist}

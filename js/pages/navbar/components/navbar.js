@@ -27,20 +27,24 @@ class Navbar extends React.Component {
 	}
 	render(){
 		return(
-			<div className='navigation'>
-				<nav className='navbar navbar-inverse'>
-					<div className="container-fluid">
-						<ul className='navlist'>
-							<div className='link-div'>
-								<li><Link to='search'>Search</Link></li>
-								<li><Link to='/profile'>Profile</Link></li>
-							</div>
-							<div className='logout-div'>
-								<li className='logout'><Link onClick={this.signOut}>Sign Out</Link></li>
-							</div>
-						</ul>
+
+			<div style={{display:'-webkit-inline-box'}} className='log-nav'>
+				<div style={{display:'-webkit-inline-box'}}>
+					<div style={{display:'-webkit-inline-box'}}>
+						<h4 className='name'>Musician |</h4>
 					</div>
-				</nav>
+					<div className='link-div'>
+						<div>
+							<Link to='search'>Search</Link>
+						</div>
+						<div>
+							<Link to='/profile'>Profile</Link>
+						</div>		
+						<div>
+							<Link className='signOut' onClick={this.signOut}>Sign Out</Link>
+						</div>
+					</div>
+				</div>
 			</div>
 		)
 	}

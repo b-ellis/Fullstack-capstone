@@ -10,7 +10,7 @@ class Application extends React.Component{
 		return(
 			<div className='react'>
 				<Navbar className='navigation col-md-2'/>
-				<div className='page col-md-12 pre-scrollable'>
+				<div className='page col-md-12'>
 					{this.props.children}
 				</div>
 			</div>

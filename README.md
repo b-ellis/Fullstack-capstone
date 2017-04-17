@@ -1,23 +1,8 @@
-# Thinkful React Starter
+# Thinkful Fullstack Capstone
 
-A template for developing React apps.
+A Capstone Project for Thinkful
 
-## Getting started
+## About
 
-### Setting up a project
-
-* Move into your projects directory: `cd ~/YOUR_PROJECTS_DIRECTORY`
-* Clone this repository: `git clone https://github.com/oampo/thinkful-react-starter YOUR_PROJECT_NAME`
-* Move into the project directory: `cd YOUR_PROJECT_NAME`
-* Install the dependencies: `npm install`
-* Create a new repo on GitHub: https://github.com/new
-    * Make sure the "Initialize this repository with a README" option is left **un**checked
-* Update the remote to point to your GitHub repository: `git remote set-url origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME`
-
-### Working on the project
-
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Run the development task: `npm run dev`
-    * Starts a server running at http://localhost:8080
-    * Automatically rebuilds when any of your files change
+This project displays the skills taught by Thinkful. It is a fullstack project, that uses node.js, powered by express in the back-end and the client-side is built by react.js. The application allows users to set-up their own profile, search and like their favorite artist. The artist page allows the user to view related-artist and a bio about the artist.
 

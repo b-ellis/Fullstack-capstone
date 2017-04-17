@@ -76,7 +76,6 @@ class ArtistPage extends React.Component{
 		if(!this.props.state.artistReducer.artist || this.props.state.artistReducer.artist.name !== this.props.routeParams.name){
 			return(
 				<div>
-					<Artistnavbar tabs={this.state.page} onClick={this.changeNavigation} state={this.props.state}/>
 					<div style={{margin:'15% 53% 0% 47%'}}>
 						<Loading type='bars' color='#e3e3e3' />
 					</div>
@@ -88,38 +87,15 @@ class ArtistPage extends React.Component{
 			case 'artist':
 			return(
 				<div>
-					<Artistnavbar tabs={this.state.tabs} onClick={this.changeNavigation} state={this.props.state}/>
-					<div>
-						<Artists storeArtist={this.storeArtist} dispatch={this.props.dispatch} 
-						name={this.props.routeParams.name} artists={this.state.artist} 
-						image={this.props.state.artistReducer.artist.images[0].url}
-						related={this.props.state.artistReducer.artist.related}
-						saveArtist={this.saveArtist}
-						favorites={this.props.state.userReducer.user.favorites}
-						starcolor={this.state.color} />
-					</div>
+					<Artists storeArtist={this.storeArtist} dispatch={this.props.dispatch} 
+					name={this.props.routeParams.name} artists={this.state.artist} 
+					image={this.props.state.artistReducer.artist.images[0].url}
+					related={this.props.state.artistReducer.artist.related}
+					saveArtist={this.saveArtist}
+					favorites={this.props.state.userReducer.user.favorites}
+					artistInfo={this.props.state.artistReducer.artistInfo.artist.bio} />
 				</div>
 			);
-
-			case 'bio':
-			return(
-				<div>
-					<Artistnavbar tabs={this.state.tabs} onClick={this.changeNavigation} state={this.props.state}/>
-					<div>
-						<Bio name={this.props.routeParams.name}  artists={this.props.state}/>
-					</div>
-				</div>
-			);
-
-			// case 'concerts':
-			// return(
-			// 	<div>
-			// 		<Artistnavbar tabs={this.state.tabs} onClick={this.changeNavigation} state={this.props.state}/>
-			// 		<div>
-			// 			<Concert name={this.props.routeParams.name}  artist={this.props.state}/>
-			// 		</div>
-			// 	</div>
-			// );
 		}
 	}
 }

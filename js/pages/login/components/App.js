@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import actions from '../actions/index';
 import RegisterForm from './register';
 import LoginForm from './login';
+import Nav from './nav';
 
 class Login extends React.Component{
 	constructor(){
@@ -45,21 +46,27 @@ class Login extends React.Component{
 		switch(this.state.form){
 			case 'login':
 			return (
-				<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
-					<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
-					<div>
-						New User?<br />
-						<span style={{cursor:'pointer', color:'blue'}} onClick={this.registerUser}>Register Here</span>
+				<div>
+					<Nav />
+					<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+						<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
+						<div>
+							New User?<br />
+							<span style={{cursor:'pointer', color:'blue'}} onClick={this.registerUser}>Register Here</span>
+						</div>
 					</div>
 				</div>
 			)
 			case 'register':
 			return(
-				<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
-					<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
-					<div>
-						Already Have An Account?<br />
-						<span style={{cursor:'pointer', color:'blue'}} onClick={this.loginUser}>Login</span>
+				<div>
+					<Nav />
+					<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+						<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
+						<div>
+							Already Have An Account?<br />
+							<span style={{cursor:'pointer', color:'blue'}} onClick={this.loginUser}>Login</span>
+						</div>
 					</div>
 				</div>
 			)

@@ -8,19 +8,34 @@ import actions from '../actions/index';
 class Profile extends React.Component {
 	constructor(){
 		super();
+		this.state ={
+			hover: false
+		}
 		this.deleteArtist = this.deleteArtist.bind(this);
+		this.handelMouseEnter = this.handelMouseEnter.bind(this);
+		this.handelMouseLeave = this.handelMouseLeave.bind(this);
 	}
 	componentWillMount(){
 		this.props.dispatch(actions.getProfile());
+	}
+	handelMouseEnter(){
+		// this.setState({
+		// 	hover: true
+		// })
+	}
+	handelMouseLeave(){
+		this.setState({
+			hover: false
+		})
 	}
 	deleteArtist(e){
 		const artist = e.target.className.split('remove ')[1];
 		this.props.dispatch(actions.deleteArtist(artist));
 		this.props.dispatch(actions.getProfile());
 	}
-	componentWillUnmount(){
-		this.props.state.userReducer = {}
-	}
+	// componentWillUnmount(){
+	// 	this.props.state.userReducer = {}
+	// }
 	render(){
 		if(!this.props.state.userReducer.user){
 			return(
@@ -39,29 +54,29 @@ class Profile extends React.Component {
 				}
 			}
 			const favoriteArtists = [];
+			// const hoverArtists = [];
 			const artistlength = this.props.state.userReducer.user.favorites.length;
 			const artist = this.props.state.userReducer.user.favorites;
 			for(let i=0;i<artistlength;i++){
-				const artistDiv =
-					<li key={i}>
-						<div style={{textAlign:'center'}} className='frame col-md-4 well well-md'>
-							<span className={'x glyphicon glyphicon-remove ' + artist[i].artist} onClick={this.deleteArtist}/>
-							<Link to={'/artist/' + header(artist[i].artist)}>
-								{artist[i].artist}<br />
-								<img className='image' src={artist[i].imgurl} />
-							</Link><br />
-						</div>
-					</li>
-				favoriteArtists.push(artistDiv)
+				const artimg = 
+				<div key={i} className='img-container'>
+					<Link className='artistLink' to={'/artist/' + header(artist[i].artist)}>
+						<img className='image col-md-6' src={artist[i].imgurl} />
+					</Link>
+					<div className='overlay'>
+						<span className={'x glyphicon glyphicon-remove image' + artist[i].artist} onClick={this.deleteArtist}/>
+						<h3 className='artistheader'>{artist[i].artist}</h3>
+					</div>
+				</div>
+				favoriteArtists.push(artimg);
 			}
 			return(
 				<div>
-					<h1>{this.props.state.userReducer.user.username + "'s "}Profile</h1>
 					<div>
-						<h3 style={{textAlign:'center'}}>Favortie Artists</h3>
-						<ul className='favorite-artists'>
+						<h3 className='favArtist' style={{textAlign:'center'}}>{this.props.state.userReducer.user.username + "'s "}Favortie Artists</h3>
+						<div>
 							{favoriteArtists}
-						</ul>
+						</div>
 					</div>
 				</div>
 			)	
