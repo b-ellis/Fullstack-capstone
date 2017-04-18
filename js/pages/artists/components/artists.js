@@ -12,7 +12,7 @@ class Artists extends React.Component {
 		super();
 	}
 	componentDidMount(){
-		console.log('artist');
+		// console.log('artist');
 	}
 	render(){
 		const header = (name) => {
@@ -31,7 +31,7 @@ class Artists extends React.Component {
 			if(this.props.favorites[i].artist !== this.props.artists){
 				star = star;
 			} else {
-				star = <span style={{padding:'7px 0 0 6px', cursor:'pointer', color:'gold'}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.saveArtist}/>
+				star = <span style={{padding:'7px 0 0 6px', cursor:'pointer', color:'gold'}} className='glyphicon glyphicon-star-empty' aria-hidden="true" onClick={this.props.deleteArtist}/>
 			}
 		}
 		// 	const Playlist = art.uri;

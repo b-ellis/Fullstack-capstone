@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import actions from '../actions/index';
 import { storeArtist } from '../../search/actions/index';
 import { getProfile } from '../../profile/actions/index';
+import { deleteArtist } from '../../profile/actions/index';
 
 import Loading from 'react-loading';
 import Artistnavbar from './artistnav';
@@ -19,6 +20,7 @@ class ArtistPage extends React.Component{
 		this.changeNavigation = this.changeNavigation.bind(this);
 		this.storeArtist = this.storeArtist.bind(this);
 		this.saveArtist = this.saveArtist.bind(this);
+		this.deleteArtist = this.deleteArtist.bind(this);
 		this.state = {
 			page: 'artist',
 			color: 'black',
@@ -69,6 +71,14 @@ class ArtistPage extends React.Component{
 			color: 'gold'
 		});
 	}
+	deleteArtist(e){
+		const artist = this.state.artist
+		this.props.dispatch(deleteArtist(artist));
+		this.setState({
+			color: 'black'
+		});
+		this.props.dispatch(getProfile());
+	}
 	componentWillUnmount(){
 		// console.log(this.state.artist + ' did unmount')
 	}
@@ -92,6 +102,8 @@ class ArtistPage extends React.Component{
 					image={this.props.state.artistReducer.artist.images[0].url}
 					related={this.props.state.artistReducer.artist.related}
 					saveArtist={this.saveArtist}
+					deleteArtist={this.deleteArtist}
+					starcolor={this.state.color}
 					favorites={this.props.state.userReducer.user.favorites}
 					artistInfo={this.props.state.artistReducer.artistInfo.artist.bio} />
 				</div>

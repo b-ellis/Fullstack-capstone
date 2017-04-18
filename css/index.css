@@ -19,6 +19,12 @@ ul{
 }*/
 
 /*Login Nav*/
+.loginDiv{
+	font-family: 'Abel', sans-serif;
+}
+.switch{
+	font-family: 'Abel', sans-serif;
+}
 .name{
 	font-family: 'Lato', sans-serif;
     font-weight: 600;
@@ -103,7 +109,12 @@ ul{
 	padding-left: 0px;
 }
 .img-container{
+	border: .5px #ccc;
 	position: relative;
+	height: 0px;
+}
+.img-container:hover{
+	opacity: .7;
 }
 .image{
 	margin-right: -2%;
@@ -114,19 +125,8 @@ ul{
   	/*width: 100%;*/
   	height: auto;
 }
-.image:hover{
-	opacity: .5;
-	margin-right: -2%;
-	width: 35%;
-	height: 30%;
-	/*position: relative;*/
-}
-.overlay{
+/*.overlay{
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	height: 100%;
 	width: 100%;
 	opacity: 0;
@@ -134,7 +134,8 @@ ul{
 }
 .img-container:hover .overlay{
 	opacity: .5;
-}
+	top: 0px;
+}*/
 .artistheader{
 	color: white;
 	font-size: 20px;

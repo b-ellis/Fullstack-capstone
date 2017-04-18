@@ -26,7 +26,6 @@ const getProfile = () => {
 			)
 		})
 		.catch((err) => {
-			console.log("user endpoint error: " + err);
 			hashHistory.push('/');
 			return dispatch(
 				getProfileError(err)

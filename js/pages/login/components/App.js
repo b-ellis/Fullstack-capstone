@@ -48,9 +48,9 @@ class Login extends React.Component{
 			return (
 				<div>
 					<Nav />
-					<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+					<div className='loginDiv' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
 						<LoginForm val={this.props.state.loginReducer} onSubmit={this.handleSubmit} />
-						<div>
+						<div className='switch'>
 							New User?<br />
 							<span style={{cursor:'pointer', color:'blue'}} onClick={this.registerUser}>Register Here</span>
 						</div>
@@ -61,9 +61,9 @@ class Login extends React.Component{
 			return(
 				<div>
 					<Nav />
-					<div className='well well-lg' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
+					<div className='loginDiv' style={{margin: '10% 25% 10% 25%', textAlign:'center'}}>
 						<RegisterForm user={this.props.state.loginReducer} onBlur={this.checkUser} onSubmit={this.handleRegisterSubmit} />
-						<div>
+						<div className='switch'>
 							Already Have An Account?<br />
 							<span style={{cursor:'pointer', color:'blue'}} onClick={this.loginUser}>Login</span>
 						</div>

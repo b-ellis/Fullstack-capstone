@@ -8,35 +8,28 @@ import actions from '../actions/index';
 class Profile extends React.Component {
 	constructor(){
 		super();
-		this.state ={
-			hover: false
-		}
 		this.deleteArtist = this.deleteArtist.bind(this);
-		this.handelMouseEnter = this.handelMouseEnter.bind(this);
-		this.handelMouseLeave = this.handelMouseLeave.bind(this);
 	}
 	componentWillMount(){
 		this.props.dispatch(actions.getProfile());
-	}
-	handelMouseEnter(){
-		// this.setState({
-		// 	hover: true
-		// })
-	}
-	handelMouseLeave(){
-		this.setState({
-			hover: false
-		})
 	}
 	deleteArtist(e){
 		const artist = e.target.className.split('remove ')[1];
 		this.props.dispatch(actions.deleteArtist(artist));
 		this.props.dispatch(actions.getProfile());
 	}
-	// componentWillUnmount(){
-	// 	this.props.state.userReducer = {}
-	// }
 	render(){
+		const overlayStyle = {
+			  position: 'absolute',
+			  top: 0,
+			  bottom: 0,
+			  left: 0,
+			  right: 0,
+			  height: '100%',
+			  width: '100%',
+			  opacity: 0,
+			  transition: '.5s ease'
+		}
 		if(!this.props.state.userReducer.user){
 			return(
 				<div style={{margin:'15% 53% 0% 47%'}}>
@@ -54,30 +47,24 @@ class Profile extends React.Component {
 				}
 			}
 			const favoriteArtists = [];
-			// const hoverArtists = [];
 			const artistlength = this.props.state.userReducer.user.favorites.length;
 			const artist = this.props.state.userReducer.user.favorites;
 			for(let i=0;i<artistlength;i++){
 				const artimg = 
-				<div key={i} className='img-container'>
+				<li key={i} className='img-container'>
+					
 					<Link className='artistLink' to={'/artist/' + header(artist[i].artist)}>
 						<img className='image col-md-6' src={artist[i].imgurl} />
 					</Link>
-					<div className='overlay'>
-						<span className={'x glyphicon glyphicon-remove image' + artist[i].artist} onClick={this.deleteArtist}/>
-						<h3 className='artistheader'>{artist[i].artist}</h3>
-					</div>
-				</div>
+				</li>
 				favoriteArtists.push(artimg);
 			}
 			return(
 				<div>
-					<div>
-						<h3 className='favArtist' style={{textAlign:'center'}}>{this.props.state.userReducer.user.username + "'s "}Favortie Artists</h3>
-						<div>
-							{favoriteArtists}
-						</div>
-					</div>
+					<h3 className='favArtist' style={{textAlign:'center'}}>{this.props.state.userReducer.user.username + "'s "}Favortie Artists</h3>
+					<ul style={{paddingLeft:'0px'}}>
+						{favoriteArtists}
+					</ul>	
 				</div>
 			)	
 		}
