@@ -68,7 +68,7 @@ class Artists extends React.Component {
 				</div>
 				{playlist}
 				<div>
-					<h3 style={{textAlign:'center'}}>Related Artists</h3>
+					<h3 className='relatedName' style={{textAlign:'center'}}>Related Artists</h3>
 					<ul>
 						{related}
 					</ul>

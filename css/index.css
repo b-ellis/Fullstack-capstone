@@ -195,9 +195,14 @@ ul{
 }
 .nameContainer h1 {
 	font-family: 'Abel', sans-serif;
+	letter-spacing: .5rem;
 }
 .bio{
 	text-align: left;
+	font-family: 'Abel', sans-serif;
+}
+.relatedName{
+	letter-spacing: .5rem;
 	font-family: 'Abel', sans-serif;
 }
 .well{
