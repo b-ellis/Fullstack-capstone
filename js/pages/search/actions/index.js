@@ -19,7 +19,6 @@ const getSearchError = (error) => {
 const getSearch = (artist) => {
 	return (dispatch) => {
 		axios.get('/search/' + artist )
-		// .then(res => res.json())
 		.then((res) => {
 			return dispatch(getSearchSuccess(res.data))
 		})

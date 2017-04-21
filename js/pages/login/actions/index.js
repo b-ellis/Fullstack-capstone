@@ -64,7 +64,6 @@ const userLogin = (user) => {
 
 	const username = user.username;
 	const password = user.password;
-	console.log("User logging in: " + user);
 
 	return (dispatch) => {
 		axios.post('/login', {
@@ -78,7 +77,6 @@ const userLogin = (user) => {
 				axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
 				dispatch(userLoginSuccess(message, res.data.username));
 				hashHistory.push('/profile');
-				console.log("Header after login: " + axios.defaults.headers.common['Authorization']);
 				return;
 			} else {
 				return dispatch(
@@ -88,7 +86,6 @@ const userLogin = (user) => {
 		})
 		.catch((err) => {
 			const errMessage = err.response.data.message;
-			console.log(errMessage)
 			return dispatch(
 				userLoginError(errMessage)
 			)

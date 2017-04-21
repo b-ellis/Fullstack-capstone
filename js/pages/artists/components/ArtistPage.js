@@ -32,7 +32,6 @@ class ArtistPage extends React.Component{
 			artist: this.props.routeParams.name
 		})
 		const artist = this.props.routeParams.name;
-		console.log(artist)
 		this.props.dispatch(storeArtist(artist));
 		this.props.dispatch(actions.getSpotifyArtist(artist));
 		this.props.dispatch(actions.getLastInfo(artist));

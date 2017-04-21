@@ -61,7 +61,6 @@ app.get('/auth',  (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-	console.log(req.body);
 	register(req, res);
 });
 
@@ -273,7 +272,6 @@ app.get('/artist/:name', passport.authenticate('basic', {session: false}), (req,
 
 			res.json(artist);
 		})
-		// res.json(data);
 	});
 
 	result.on('error', (err) => {
