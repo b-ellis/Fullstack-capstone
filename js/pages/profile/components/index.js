@@ -62,7 +62,7 @@ class Profile extends React.Component {
 			return(
 				<div>
 					<h3 className='favArtist' style={{textAlign:'center'}}>{this.props.state.userReducer.user.username + "'s "}Favortie Artists</h3>
-					<ul style={{paddingLeft:'0px'}}>
+					<ul className='artList' style={{paddingLeft:'0px'}}>
 						{favoriteArtists}
 					</ul>	
 				</div>

@@ -119,10 +119,8 @@ ul{
 .image{
 	margin-right: -2%;
 	width: 35%;
-	/*height: 30%;*/
 	position: relative;
 	display: block;
-  	/*width: 100%;*/
   	height: auto;
 }
 /*.overlay{
@@ -208,4 +206,50 @@ ul{
 }
 .well{
 	font-family: 'Abel', sans-serif;
+}
+
+@media only screen and (max-width: 1120px) {
+	.bio{
+		width: 63%;
+	}
+}
+@media only screen and (max-width: 991px) {
+	.artList{
+		text-align: center;
+	}
+	.img-container{
+		display: initial;
+		border: .5px #ccc;
+		position: relative;
+		height: 0px;
+	}
+	.image{
+		width: 45%;
+		margin-right: -2%;
+		position: relative;
+		display: initial;
+	  	height: auto;
+	}
+	.title-container{
+		display: block;
+	}
+	.bio{
+		width: 100%;
+	}
+}
+@media only screen and (max-width: 630px){
+	.link-div div {
+	    list-style: none;
+	    margin-left: 4rem;
+	    letter-spacing: .1rem;
+	    width: 10rem;
+	}
+}
+@media only screen and (max-width: 555px){
+	.link-div div {
+	    list-style: none;
+	    margin-left: 1rem;
+	    letter-spacing: .1rem;
+	    width: 10rem;
+	}
 }
