@@ -185,20 +185,26 @@ ul{
 	border-radius: 1rem;
 }
 .namebiocontainer{
-	display: inline-grid;
+	width: 70%;
 }
 .nameContainer{
     margin-top: 2rem;
 	display: -webkit-inline-box;
     margin-left: 1rem;
+    width: 100%;
+    padding-left: 5rem;
 }
 .nameContainer h1 {
 	font-family: 'Abel', sans-serif;
 	letter-spacing: .5rem;
 }
+.bio-div{
+	padding-left: 6rem;
+}
 .bio{
 	text-align: left;
 	font-family: 'Abel', sans-serif;
+	width: 80%;
 }
 .relatedName{
 	letter-spacing: .5rem;
@@ -235,6 +241,17 @@ ul{
 	}
 	.bio{
 		width: 100%;
+	}
+	.bio-div{
+		padding-left: .5rem;
+	}
+	.namebiocontainer{
+		width: 100%;
+	}
+	.nameContainer{
+		display: inline-flex;
+    	justify-content: center;
+    	margin-left: 0px;
 	}
 }
 @media only screen and (max-width: 630px){

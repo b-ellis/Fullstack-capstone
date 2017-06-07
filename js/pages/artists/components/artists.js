@@ -47,7 +47,7 @@ class Artists extends React.Component {
 				related.push(item);
 			}
 			const artistInfo = this.props.artistInfo.content.split('<')[0];
-			const info = <p className='bio col-md-8 pre-scrollable'>{artistInfo}</p>
+			const info = <p className='bio pre-scrollable'>{artistInfo}</p>
 		return(
 			<div>
 				<div>
@@ -60,7 +60,7 @@ class Artists extends React.Component {
 								<h1>{this.props.name}</h1>
 								<h3>{star}</h3>
 							</div>
-							<div>
+							<div className='bio-div'>
 								{info}
 							</div>
 						</div>
