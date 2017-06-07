@@ -12,7 +12,7 @@ import User from './models/user';
 import Profile from './models/profile';
 import { register } from './server/register';
 import { strategy } from './server/validation';
-import { getApi, getLastApi, getJambaseApi } from './server/api';
+import { getApi, getLastApi } from './server/api';
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -236,7 +236,6 @@ app.delete('/favorite/:artist', passport.authenticate('basic', {session: false})
 	});
 });
 
-
 app.get('/search/:name', passport.authenticate('basic', {session: false}), (req, res) => {
 	const result = getApi('search', {
 		q: req.params.name,
@@ -256,10 +255,11 @@ app.get('/search/:name', passport.authenticate('basic', {session: false}), (req,
 });
 
 app.get('/artist/:name', passport.authenticate('basic', {session: false}), (req, res) => {
+
 	const result = getApi('search', {
 		q: req.params.name,
 		limit: 1,
-		type: 'artist'
+		type: 'artist',
 	});
 
 
@@ -297,22 +297,3 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 		});
 	});
 });
-
-// app.get('/artistconcert/:name', passport.authenticate('basic', {session: false}), (req, res) => {
-// 	console.log(req.params.name)
-// 	const concertResult = getJambaseApi('artist', {
-// 		name: req.params.name,
-// 		api_key: 'vrchjvtc2yyx7wzs56hsuprd'
-// 	});
-
-// 	concertResult.on('end', (data) => {
-// 		console.log(data)
-// 		res.json(data);
-// 	});
-
-// 	concertResult.on('error', (err) => {
-// 		res.status(404).json({
-// 			message: 'Could not contact Bandsintown Api'
-// 		});
-// 	});
-// });
