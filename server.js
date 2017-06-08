@@ -12,7 +12,7 @@ import User from './models/user';
 import Profile from './models/profile';
 import { register } from './server/register';
 import { strategy } from './server/validation';
-import { getApi, getLastApi } from './server/api';
+import { getApi, getLastApi, getGoogleSearch } from './server/api';
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -294,6 +294,20 @@ app.get('/artistInfo/:name', passport.authenticate('basic', {session: false}), (
 	lastResult.on('error', (err) => {
 		res.status(404).json({
 			message: 'Could not contact Last.fm api'
+		});
+	});
+});
+
+app.get('/google/:artistname', passport.authenticate('basic', {session: false}), (req, res) => {
+	const googleResults = getGoogleSearch(req.params.artistname);
+
+	googleResults.on('end', (data) => {
+		res.json(data.items[0].link)
+	});
+
+	googleResults.on('error', (err) => {
+		res.status(404).json({
+			message: 'Could not contact Custom Google Search'
 		});
 	});
 });

@@ -35,6 +35,7 @@ class ArtistPage extends React.Component{
 		this.props.dispatch(storeArtist(artist));
 		this.props.dispatch(actions.getSpotifyArtist(artist));
 		this.props.dispatch(actions.getLastInfo(artist));
+		this.props.dispatch(actions.getGoogleResults(artist));
 		this.props.dispatch(getProfile());
 	}
 	componentWillReceiveProps(nextProp){
@@ -104,7 +105,8 @@ class ArtistPage extends React.Component{
 					deleteArtist={this.deleteArtist}
 					starcolor={this.state.color}
 					favorites={this.props.state.userReducer.user.favorites}
-					artistInfo={this.props.state.artistReducer.artistInfo.artist.bio} />
+					artistInfo={this.props.state.artistReducer.artistInfo.artist.bio}
+					officialUrl={this.props.state.artistReducer.officialUrl} />
 				</div>
 			);
 		}

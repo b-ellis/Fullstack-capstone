@@ -206,6 +206,9 @@ ul{
 	font-family: 'Abel', sans-serif;
 	width: 80%;
 }
+.official{
+	float: left;
+}
 .relatedName{
 	letter-spacing: .5rem;
 	font-family: 'Abel', sans-serif;

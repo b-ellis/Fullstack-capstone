@@ -62,6 +62,7 @@ class Artists extends React.Component {
 							</div>
 							<div className='bio-div'>
 								{info}
+								<a className='official' href={this.props.officialUrl}>Official Website</a>
 							</div>
 						</div>
 					</div>

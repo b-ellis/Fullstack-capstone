@@ -27,6 +27,12 @@ const artistReducer = (state={}, action) => {
 			favorite: action.artist
 		});
 		return artistState;
+
+		case actions.GET_GOOGLE_SUCCESS:
+		const googleState = Object.assign({}, state, {
+			officialUrl: action.url
+		});
+		return googleState;
 	}
 
 	return state;

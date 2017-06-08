@@ -47,6 +47,24 @@ const getLastApi = (args) => {
 	return emitter;
 }
 
+const getGoogleSearch = (artist) => {
+	const emitter = new events.EventEmitter();
+	unirest.get('https://www.googleapis.com/customsearch/v1?').qs({
+		q: 'official ' + artist + ' music',
+		cx: '004651962465610952147:ruimjmnfvq4',
+		key: 'AIzaSyCYmc5R8dS36A3K2PsqyFZaroo9OVIiaS8' 
+	})
+	.end((res) => {
+		if(res.ok) {
+			emitter.emit('end', res.body);
+		} else {
+			emitter.emit('error', res.code);
+		}
+	});
+	return emitter;
+}
+
 
 exports.getApi = getApi;
 exports.getLastApi = getLastApi;
+exports.getGoogleSearch = getGoogleSearch;

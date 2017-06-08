@@ -120,6 +120,38 @@ const saveArtist = (artist, imgurl) => {
 	}
 }
 
+const GET_GOOGLE_SUCCESS = 'GET_GOOGLE_SUCCESS';
+const getGoogleSuccess = (link) => {
+	return{
+		type: GET_GOOGLE_SUCCESS,
+		url: link
+	}
+}
+
+const GET_GOOGLE_ERROR = 'GET_GOOGLE_ERROR';
+const getGoogleError = (error) => {
+	return{
+		type: GET_GOOGLE_ERROR,
+		error: error
+	}
+}
+
+const getGoogleResults = (artist) => {
+	return(dispatch) => {
+		axios.get('/google/' + artist)
+		.then((res) => {
+			return dispatch(
+				getGoogleSuccess(res.data)
+			)
+		})
+		.catch((error) => {
+			dispatch(
+				getGoogleError(error)
+			)
+		});
+	}
+}
+
 exports.GET_SPOTIFYARTIST_SUCCESS = GET_SPOTIFYARTIST_SUCCESS;
 exports.getSpotifyArtistSuccess = getSpotifyArtistSuccess;
 
@@ -151,3 +183,11 @@ exports.SAVE_ARTIST_ERROR = SAVE_ARTIST_ERROR;
 exports.saveArtistError = saveArtistError;
 
 exports.saveArtist = saveArtist;
+
+exports.GET_GOOGLE_SUCCESS = GET_GOOGLE_SUCCESS;
+exports.getGoogleSuccess = getGoogleSuccess;
+
+exports.GET_GOOGLE_ERROR = GET_GOOGLE_ERROR;
+exports.getGoogleError = getGoogleError;
+
+exports.getGoogleResults = getGoogleResults;
